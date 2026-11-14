@@ -1,30 +1,27 @@
 # Autocratic Management Services Private Limited
-## Brand Color System & Technical Review Guide
+## Interactive Brand Color Theme Explorer & Guide
 
-### 🎨 The Signature Brand Color System: "Sovereign Navy & Cognac Amber"
-
-Following your feedback and reviewing the screenshots, the visual system has been anchored to a distinctive, institutional color palette that prevents washed-out white-on-white rendering:
-
-1. **Primary Anchor Brand Color — Sovereign Navy (`#0B1E36` to `#060E1A`)**:
-   - Used for the Hero, Top Navigation, Credibility Bar, and Footer.
-   - Provides deep, authoritative grounding appropriate for an institutional risk investigation firm.
-2. **Warm Trust Accent — Burnished Cognac Amber (`#E07E24` / `#F09A43` / `#C56517`)**:
-   - Replaces neon yellows and generic blues.
-   - Used purposefully for primary CTA buttons, highlighted terms in headlines, and active status indicators.
-3. **Content Background — High-Contrast Architectural Porcelain (`#FFFFFF` and `#F8FAFC`)**:
-   - Clean, crisp, and readable for service grids, district search, leadership bios, and contact forms.
-   - All headings on light backgrounds are rendered in Deep Sovereign Navy (`#060E1A`) with slate body text (`#334155`), ensuring maximum legibility.
+We have integrated a **Live Theme Explorer** directly into the website (accessible via the floating **"Explore Colors"** button at the bottom-right of your screen). You can preview all 4 executive corporate color palettes in real time:
 
 ---
 
-### 🔍 Root Cause of the Previous Issue & Fix Implemented
+### 🎨 The 4 Curated Executive Color Themes
 
-- **What happened in the screenshots**:
-  In the previous turn, custom color keys were added to `tailwind.config.js` while the Vite dev server was already running. The dev server's build cache did not reload the updated config, causing those background classes to be omitted from the runtime stylesheet. As a result, elements defaulted to transparent/white, causing white text to render on a white background.
-- **Permanent Fix**:
-  1. Configured standard brand palette (`brand-950`, `brand-900`, `brand-850`, `accent-500`, etc.) in `tailwind.config.js`.
-  2. Added explicit CSS class fallbacks in `src/index.css` to guarantee that colors render across all browsers and dev environments.
-  3. Rebuilt the production assets and restarted the Vite dev server.
+| Theme Name | Primary Anchor | Warm Accent | Vibe & Industry Association |
+| :--- | :--- | :--- | :--- |
+| **1. Sovereign Navy & Cognac** *(Default)* | `#0B1E36` / `#060E1A` (Maritime Navy) | `#E07E24` (Cognac Amber) | Traditional institutional banking, marine & motor claims insurance, high-trust stability. |
+| **2. British Forest Spruce & Copper** | `#0A2920` / `#04140F` (Racing Spruce) | `#D96B27` (Warm Terracotta Copper) | Inspired by UK risk houses like Charterhouse. Deep heritage, natural authority, senior loss adjusting. |
+| **3. Intelligence Obsidian & Royal Sapphire** | `#0D1624` / `#070B12` (Gunmetal Slate) | `#2563EB` / `#38BDF8` (Royal Sapphire) | Inspired by Visus IRS & modern forensic intelligence. High-tech, anti-fraud telemetry, cyber-speed. |
+| **4. Imperial Bordeaux & Champagne Gold** | `#220810` / `#120408` (Bordeaux Wine) | `#D4AF37` / `#E5C558` (Champagne Gold) | High-stakes tribunal defense (MACT), legal gravitas, senior executive advisory. |
+
+---
+
+### 🕹️ How to Test & Choose
+1. Open the website: [http://localhost:5173/](http://localhost:5173/)
+2. Click the floating **"Explore Colors"** pill in the bottom-right corner.
+3. Click any of the 4 palettes — the entire website (header, hero, console, cards, buttons, badges, and footer) dynamically shifts to that palette.
+4. Your choice is automatically saved in `localStorage` so it persists when you refresh or browse.
+5. Once you find your favorite, let me know (e.g. *"I prefer British Forest Spruce"* or *"Make Imperial Bordeaux default"*), and I will lock it in as the permanent default!
 
 ---
 
@@ -45,16 +42,3 @@ Following your feedback and reviewing the screenshots, the visual system has bee
 | **Official Email** | `radheyrspandey9@rediffmail.com` | Top ticker, Contact, Footer |
 | **Working Hours** | Monday – Saturday, 9:30 AM – 7:00 PM | Contact & Footer |
 | **Geographic Scope** | All 75 Districts of Uttar Pradesh (100% Pan-UP) | Hero, Services, Coverage Map |
-
----
-
-### 🚀 Running the Project
-
-```bash
-# Development Server
-npm run dev
-
-# Production Build
-npm run build
-```
-Live server: `http://localhost:5173/`
