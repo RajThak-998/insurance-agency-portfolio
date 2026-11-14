@@ -1,29 +1,34 @@
 # Autocratic Management Services Private Limited
-## Website Review Guide, Placeholders & Next Steps
+## Brand Color System & Technical Review Guide
 
-This document details all verified information implemented on the website, flags placeholder and dummy data that require your review or real input, and provides maintenance instructions.
+### 🎨 The Signature Brand Color System: "Sovereign Navy & Cognac Amber"
 
----
+Following your feedback and reviewing the screenshots, the visual system has been anchored to a distinctive, institutional color palette that prevents washed-out white-on-white rendering:
 
-### 1. Visual & Aesthetic Architecture (Executive Redesign)
-
-The landing page and overall design has been overhauled to deliver an institutional, high-end risk advisory aesthetic:
-
-* **Executive Color System**:
-  - **Primary Canvas**: Obsidian Midnight (`#060B14`) & Deep Slate Navy (`#0A1220`) for the Hero, Command Bar, and Footer.
-  - **Content Canvas**: Pristine Institutional Porcelain (`#FAFAFC` & `#FFFFFF`) with subtle 1px hair-line borders for maximum readability and corporate breathing room.
-  - **Accent**: Refined Burnished Bronze / Warm Ochre Amber (`#D97706` & `#B45309`) paired with subtle emerald verification badges. Replaces loud/cheap yellow and neon blues with an authoritative, established tone.
-* **Modern Executive Typography**:
-  - Primary font: **Plus Jakarta Sans** with geometric precision, optical letter tracking (`tracking-tight`), and crisp micro-labels.
-  - Technical Monospace: **JetBrains Mono** for corporate identification numbers (CIN, ROC, GPS coordinates).
-* **Interactive Aliganj Command Console**:
-  - An interactive terminal in the hero section displaying live status across the 4 UP Operational Hubs (Central, Western, Eastern, Bundelkhand), average response TAT, active field force counts, and chain-of-custody protocols.
+1. **Primary Anchor Brand Color — Sovereign Navy (`#0B1E36` to `#060E1A`)**:
+   - Used for the Hero, Top Navigation, Credibility Bar, and Footer.
+   - Provides deep, authoritative grounding appropriate for an institutional risk investigation firm.
+2. **Warm Trust Accent — Burnished Cognac Amber (`#E07E24` / `#F09A43` / `#C56517`)**:
+   - Replaces neon yellows and generic blues.
+   - Used purposefully for primary CTA buttons, highlighted terms in headlines, and active status indicators.
+3. **Content Background — High-Contrast Architectural Porcelain (`#FFFFFF` and `#F8FAFC`)**:
+   - Clean, crisp, and readable for service grids, district search, leadership bios, and contact forms.
+   - All headings on light backgrounds are rendered in Deep Sovereign Navy (`#060E1A`) with slate body text (`#334155`), ensuring maximum legibility.
 
 ---
 
-### 2. Verified Corporate Data Implemented
+### 🔍 Root Cause of the Previous Issue & Fix Implemented
 
-The website integrates all official records from the Ministry of Corporate Affairs (MCA), Zauba Corp, and company disclosures:
+- **What happened in the screenshots**:
+  In the previous turn, custom color keys were added to `tailwind.config.js` while the Vite dev server was already running. The dev server's build cache did not reload the updated config, causing those background classes to be omitted from the runtime stylesheet. As a result, elements defaulted to transparent/white, causing white text to render on a white background.
+- **Permanent Fix**:
+  1. Configured standard brand palette (`brand-950`, `brand-900`, `brand-850`, `accent-500`, etc.) in `tailwind.config.js`.
+  2. Added explicit CSS class fallbacks in `src/index.css` to guarantee that colors render across all browsers and dev environments.
+  3. Rebuilt the production assets and restarted the Vite dev server.
+
+---
+
+### 📍 Verified Corporate Data
 
 | Attribute | Verified Value on Website | Location in Code |
 | :--- | :--- | :--- |
@@ -43,55 +48,13 @@ The website integrates all official records from the Ministry of Corporate Affai
 
 ---
 
-### 3. Items Requiring Review & Real Input (Placeholders Used)
+### 🚀 Running the Project
 
-The following items currently contain placeholder / dummy data and should be updated when official assets are available:
-
-#### 1. Official Landline & Mobile Phone Numbers
-* **Current Placeholder**: Displayed as `+91 94150 XXXXX` / `+91 522 XXXXXXX` in `src/data/companyData.js`.
-* **Action Required**: Provide the actual operational helpline or desk phone number for the Aliganj office. Update `contact.helplinePhone` and `contact.deskPhone` in `src/data/companyData.js`.
-
-#### 2. Corporate Domain & Email Address
-* **Current Setting**: We provided their active official email `radheyrspandey9@rediffmail.com` across all contact points. We also prepared a placeholder `contact@autocraticmanagement.com`.
-* **Recommendation**: If AMSPL plans to register a custom domain (e.g. `autocraticmanagement.com` or `amsinvestigations.in`), setting up corporate email addresses (e.g. `claims@autocraticmanagement.com` or `director@autocraticmanagement.com`) will significantly enhance credibility when dealing with major institutional insurers.
-
-#### 3. Director Headshot Photographs
-* **Current Setting**: Elegant initials monograms (`RP` and `SP`) with corporate verification badges.
-* **Action Required**: If the directors wish to feature professional photographs, place high-resolution headshots in `public/team/` and update `directors[i].image` in `src/data/companyData.js`.
-
-#### 4. Insurer Partner Logos & Empanelment Status
-* **Current Setting**: We showcased industry compatibility cards with top underwriters (ICICI Lombard, Bajaj Allianz, Tata AIG, HDFC ERGO, Go Digit, New India Assurance, Star Health, etc.).
-* **Action Required**: Verify which specific insurers AMSPL is currently empaneled with or has formal NDAs with before publicizing specific carrier relationships.
-
-#### 5. Case Study Exact Claims
-* **Current Setting**: Realistic field investigation scenarios (Motor OD staged crash on Sitapur highway, Commercial truck theft in Kanpur Dehat, and Ghost hospital IPD audit in Gorakhpur) were crafted to demonstrate rigorous methodology without violating any non-disclosure agreements.
-* **Action Required**: Review or customize the case summaries in `src/data/companyData.js` under `SAMPLE_CASE_STUDIES` to reflect preferred real-world wins.
-
-#### 6. Google Maps Exact Location Pin
-* **Current Setting**: Embedded Google Map centered on Aliganj, Lucknow (Pin 226024).
-* **Action Required**: Once a Google Business Profile pin is claimed for "3rd Floor, B, 1/60, Sector-P, Sector K, Aliganj", the exact iframe URL can be pasted into `src/components/Contact.jsx`.
-
----
-
-### 4. How to Update Data in One Place
-
-All core business details, contacts, service lines, and metrics are centralized in a single configuration file:
-👉 **`src/data/companyData.js`**
-
-Editing this one file automatically updates the Header, Hero, About Us, Services, Coverage Map, Leadership, Contact, and Footer components!
-
----
-
-### 5. Running & Building the Application
-
-#### To Run Development Server:
 ```bash
+# Development Server
 npm run dev
-```
-Accessible at: `http://localhost:5173/`
 
-#### To Create Production Build:
-```bash
+# Production Build
 npm run build
 ```
-Creates an optimized static bundle in the `dist/` folder ready for deployment.
+Live server: `http://localhost:5173/`
