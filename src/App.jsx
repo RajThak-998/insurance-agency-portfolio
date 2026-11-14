@@ -10,6 +10,7 @@ import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CaseTriageModal from './components/CaseTriageModal';
+import ThemeSwitcher from './components/ThemeSwitcher';
 
 export default function App() {
   const [isTriageModalOpen, setIsTriageModalOpen] = useState(false);
@@ -43,6 +44,9 @@ export default function App() {
         isOpen={isTriageModalOpen} 
         onClose={handleCloseTriage} 
       />
+
+      {/* Real-time Interactive Color Theme Explorer */}
+      <ThemeSwitcher />
     </div>
   );
 }

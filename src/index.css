@@ -2,6 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================================
+   THEME 1: SOVEREIGN NAVY & COGNAC AMBER (Default)
+   Institutional maritime banking & corporate claims risk
+   ======================================================== */
+:root, [data-theme="navy"] {
+  --brand-950: #060E1A;
+  --brand-900: #0B1E36;
+  --brand-850: #0F2644;
+  --brand-800: #143156;
+  --brand-750: #1B3D6B;
+  --brand-700: #234C82;
+  --brand-200: #C7DCF8;
+  --brand-100: #E6EFFB;
+  --brand-50: #F3F7FD;
+
+  --accent-600: #C56517;
+  --accent-500: #E07E24;
+  --accent-400: #F09A43;
+  --accent-300: #F7B76F;
+  --accent-200: #FBD6A5;
+  --accent-100: #FDEBD4;
+  --accent-50: #FEF6ED;
+}
+
+/* ========================================================
+   THEME 2: BRITISH FOREST SPRUCE & WARM COPPER
+   Charterhouse / elite UK risk houses heritage aesthetic
+   ======================================================== */
+[data-theme="forest"] {
+  --brand-950: #04140F;
+  --brand-900: #0A2920;
+  --brand-850: #0F372C;
+  --brand-800: #154538;
+  --brand-750: #1D5848;
+  --brand-700: #256B58;
+  --brand-200: #BCE3D7;
+  --brand-100: #DBF1EB;
+  --brand-50: #F0FAF7;
+
+  --accent-600: #B85314;
+  --accent-500: #D96B27;
+  --accent-400: #F2853D;
+  --accent-300: #F6A368;
+  --accent-200: #FBC9A4;
+  --accent-100: #FDE6D5;
+  --accent-50: #FEF6F0;
+}
+
+/* ========================================================
+   THEME 3: INTELLIGENCE OBSIDIAN & ROYAL SAPPHIRE
+   Visus / Palantir high-tech cyber-forensic investigation
+   ======================================================== */
+[data-theme="obsidian"] {
+  --brand-950: #070B12;
+  --brand-900: #0D1624;
+  --brand-850: #121F32;
+  --brand-800: #182840;
+  --brand-750: #213554;
+  --brand-700: #2C456D;
+  --brand-200: #BFD3F6;
+  --brand-100: #DDE8FB;
+  --brand-50: #F0F5FD;
+
+  --accent-600: #1D4ED8;
+  --accent-500: #2563EB;
+  --accent-400: #38BDF8;
+  --accent-300: #7DD3FC;
+  --accent-200: #BAE6FD;
+  --accent-100: #E0F2FE;
+  --accent-50: #F0F9FF;
+}
+
+/* ========================================================
+   THEME 4: IMPERIAL BORDEAUX & CHAMPAGNE GOLD
+   Aristocratic legal authority & senior tribunal defense
+   ======================================================== */
+[data-theme="bordeaux"] {
+  --brand-950: #120408;
+  --brand-900: #220810;
+  --brand-850: #2E0D17;
+  --brand-800: #3D1220;
+  --brand-750: #50192B;
+  --brand-700: #662038;
+  --brand-200: #F5B8CB;
+  --brand-100: #FBD7E2;
+  --brand-50: #FCF1F4;
+
+  --accent-600: #B38E22;
+  --accent-500: #D4AF37;
+  --accent-400: #E5C558;
+  --accent-300: #EED781;
+  --accent-200: #F5E6AD;
+  --accent-100: #FBF4D8;
+  --accent-50: #FDFBED;
+}
+
 @layer base {
   html {
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -21,22 +117,41 @@
   }
 }
 
-/* Explicit Fallback Classes to Guarantee Flawless Theme Contrast */
-.bg-brand-950 { background-color: #060E1A !important; }
-.bg-brand-900 { background-color: #0B1E36 !important; }
-.bg-brand-850 { background-color: #0F2644 !important; }
-.bg-brand-800 { background-color: #143156 !important; }
-.text-brand-950 { color: #060E1A !important; }
-.text-brand-900 { color: #0B1E36 !important; }
-.text-brand-800 { color: #143156 !important; }
+/* Explicit Fallback Classes to Guarantee Color Rendering */
+.bg-brand-950 { background-color: var(--brand-950) !important; }
+.bg-brand-900 { background-color: var(--brand-900) !important; }
+.bg-brand-850 { background-color: var(--brand-850) !important; }
+.bg-brand-800 { background-color: var(--brand-800) !important; }
+.bg-brand-750 { background-color: var(--brand-750) !important; }
+.bg-brand-700 { background-color: var(--brand-700) !important; }
+.bg-brand-100 { background-color: var(--brand-100) !important; }
+.bg-brand-50 { background-color: var(--brand-50) !important; }
 
-.bg-accent-600 { background-color: #C56517 !important; }
-.bg-accent-500 { background-color: #E07E24 !important; }
-.bg-accent-400 { background-color: #F09A43 !important; }
-.text-accent-400 { color: #F09A43 !important; }
-.text-accent-500 { color: #E07E24 !important; }
-.text-accent-600 { color: #C56517 !important; }
-.border-accent-500 { border-color: #E07E24 !important; }
+.text-brand-950 { color: var(--brand-950) !important; }
+.text-brand-900 { color: var(--brand-900) !important; }
+.text-brand-800 { color: var(--brand-800) !important; }
+
+.border-brand-900 { border-color: var(--brand-900) !important; }
+.border-brand-800 { border-color: var(--brand-800) !important; }
+.border-brand-750 { border-color: var(--brand-750) !important; }
+.border-brand-700 { border-color: var(--brand-700) !important; }
+
+.bg-accent-600 { background-color: var(--accent-600) !important; }
+.bg-accent-500 { background-color: var(--accent-500) !important; }
+.bg-accent-400 { background-color: var(--accent-400) !important; }
+.bg-accent-100 { background-color: var(--accent-100) !important; }
+.bg-accent-50 { background-color: var(--accent-50) !important; }
+
+.text-accent-600 { color: var(--accent-600) !important; }
+.text-accent-500 { color: var(--accent-500) !important; }
+.text-accent-400 { color: var(--accent-400) !important; }
+.text-accent-300 { color: var(--accent-300) !important; }
+.text-accent-800 { color: var(--accent-600) !important; }
+
+.border-accent-600 { border-color: var(--accent-600) !important; }
+.border-accent-500 { border-color: var(--accent-500) !important; }
+.border-accent-400 { border-color: var(--accent-400) !important; }
+.border-accent-200 { border-color: var(--accent-200) !important; }
 
 /* Subtle Architectural Grid Pattern */
 .bg-sovereign-grid {
@@ -46,42 +161,21 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
-.bg-light-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(11, 30, 54, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(11, 30, 54, 0.035) 1px, transparent 1px);
-}
-
 /* Glassmorphism for High-End Corporate UI */
 .executive-glass {
-  background-color: rgba(11, 30, 54, 0.94) !important;
+  background-color: var(--brand-900) !important;
+  opacity: 0.96;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .executive-card-dark {
-  background: linear-gradient(180deg, #0D213B 0%, #081526 100%) !important;
+  background: linear-gradient(180deg, var(--brand-850) 0%, var(--brand-950) 100%) !important;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Smooth Transitions & Focus */
-button, a {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #060E1A;
-}
-::-webkit-scrollbar-thumb {
-  background: #1B3D6B;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2F61A3;
+/* Smooth Transitions */
+header, section, footer, div, button {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
 }
