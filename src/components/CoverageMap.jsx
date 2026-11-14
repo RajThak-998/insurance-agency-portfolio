@@ -21,17 +21,17 @@ export default function CoverageMap({ onOpenTriageModal }) {
   );
 
   return (
-    <section id="coverage" className="py-24 bg-white relative overflow-hidden border-b border-slate-200/80">
+    <section id="coverage" className="py-24 bg-white relative overflow-hidden border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold tracking-wider uppercase border border-slate-200">
-            <Navigation className="w-3.5 h-3.5 text-bronze-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold tracking-wider uppercase border border-slate-200">
+            <Navigation className="w-3.5 h-3.5 text-accent-600" />
             <span>Statewide Operational Matrix</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-navy-950 font-heading tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-brand-950 font-heading tracking-tight">
             100% Pan-UP Reach Across All 75 Districts
           </h2>
 
@@ -42,7 +42,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
 
         {/* District Verification Search Box (Interactive Tool for Claims Managers) */}
         <div className="mt-12 max-w-2xl mx-auto">
-          <div className="bg-[#FAFAFC] p-2.5 sm:p-3.5 rounded-2xl border border-slate-300/80 shadow-luxury">
+          <div className="bg-slate-50 p-2.5 sm:p-3.5 rounded-2xl border border-slate-300 shadow-md">
             <div className="relative flex items-center">
               <Search className="w-5 h-5 text-slate-400 absolute left-4" />
               <input
@@ -50,7 +50,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                 placeholder="Search any UP district (e.g., Lucknow, Sitapur, Gorakhpur, Agra, Varanasi)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-28 py-3 bg-white rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium text-slate-800 placeholder-slate-400"
+                className="w-full pl-12 pr-28 py-3 bg-white rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium text-slate-800 placeholder-slate-400"
               />
               {searchQuery && (
                 <button
@@ -60,7 +60,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                   Clear
                 </button>
               )}
-              <span className="hidden sm:inline-block absolute right-3 px-3 py-1 rounded-lg bg-navy-950 text-bronze-400 text-xs font-mono font-bold">
+              <span className="hidden sm:inline-block absolute right-3 px-3 py-1 rounded-lg bg-brand-950 text-accent-400 text-xs font-mono font-bold">
                 75 / 75 Active
               </span>
             </div>
@@ -76,7 +76,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                     {filteredDistricts.map((district) => (
                       <div 
                         key={district} 
-                        className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg text-xs font-semibold text-navy-950 border border-slate-200"
+                        className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg text-xs font-semibold text-brand-950 border border-slate-200"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span className="truncate">{district}</span>
@@ -102,14 +102,14 @@ export default function CoverageMap({ onOpenTriageModal }) {
                 key={region.name}
                 className={`rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between ${
                   isHQ 
-                    ? 'bg-navy-950 text-white border-navy-850 shadow-luxury-dark' 
-                    : 'bg-[#FAFAFC] text-slate-800 border-slate-200/90 hover:border-slate-300 shadow-card-subtle hover:shadow-luxury'
+                    ? 'bg-brand-950 text-white border-brand-800 shadow-xl' 
+                    : 'bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3.5">
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                      isHQ ? 'bg-bronze-500 text-navy-950' : 'bg-navy-100 text-navy-850'
+                      isHQ ? 'bg-accent-500 text-white' : 'bg-brand-100 text-brand-900'
                     }`}>
                       {isHQ ? 'Central Command HQ' : 'Regional Division'}
                     </span>
@@ -118,7 +118,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                     </span>
                   </div>
 
-                  <h3 className={`text-lg font-bold font-heading ${isHQ ? 'text-white' : 'text-navy-950'}`}>
+                  <h3 className={`text-lg font-bold font-heading ${isHQ ? 'text-white' : 'text-brand-950'}`}>
                     {region.name}
                   </h3>
                   <p className={`text-xs font-medium mt-0.5 ${isHQ ? 'text-slate-300' : 'text-slate-500'}`}>
@@ -135,7 +135,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                           key={d} 
                           className={`text-[11px] px-2 py-0.5 rounded ${
                             isHQ 
-                              ? 'bg-navy-900 text-slate-200 border border-white/10' 
+                              ? 'bg-brand-900 text-slate-200 border border-brand-800' 
                               : 'bg-white text-slate-700 border border-slate-200'
                           }`}
                         >
@@ -143,7 +143,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
                         </span>
                       ))}
                       {region.districts.length > 6 && (
-                        <span className={`text-[11px] px-2 py-0.5 rounded font-mono font-semibold ${isHQ ? 'text-bronze-400' : 'text-navy-800'}`}>
+                        <span className={`text-[11px] px-2 py-0.5 rounded font-mono font-semibold ${isHQ ? 'text-accent-400' : 'text-brand-800'}`}>
                           +{region.districts.length - 6} more
                         </span>
                       )}
@@ -151,12 +151,12 @@ export default function CoverageMap({ onOpenTriageModal }) {
                   </div>
                 </div>
 
-                <div className={`mt-6 pt-4 border-t ${isHQ ? 'border-white/10' : 'border-slate-200/60'} flex items-center justify-between text-xs`}>
+                <div className={`mt-6 pt-4 border-t ${isHQ ? 'border-brand-800' : 'border-slate-200'} flex items-center justify-between text-xs`}>
                   <div className="flex items-center gap-1.5">
-                    <Users className={`w-3.5 h-3.5 ${isHQ ? 'text-bronze-400' : 'text-navy-800'}`} />
+                    <Users className={`w-3.5 h-3.5 ${isHQ ? 'text-accent-400' : 'text-brand-800'}`} />
                     <span className={isHQ ? 'text-slate-300' : 'text-slate-600'}>{region.officers}</span>
                   </div>
-                  <span className={`font-semibold ${isHQ ? 'text-bronze-400' : 'text-navy-950'}`}>Active Field SLA</span>
+                  <span className={`font-semibold ${isHQ ? 'text-accent-400' : 'text-brand-950'}`}>Active Field SLA</span>
                 </div>
               </div>
             );
@@ -164,16 +164,16 @@ export default function CoverageMap({ onOpenTriageModal }) {
         </div>
 
         {/* Central Command Callout Strip */}
-        <div className="mt-14 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 text-white rounded-3xl border border-white/10 p-7 sm:p-9 flex flex-col md:flex-row items-center justify-between gap-6 shadow-luxury-dark">
+        <div className="mt-14 bg-gradient-to-r from-brand-950 via-brand-900 to-brand-950 text-white rounded-3xl border border-brand-800 p-7 sm:p-9 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 text-bronze-400 flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-brand-900 text-accent-400 flex items-center justify-center shrink-0 border border-brand-800">
               <Building className="w-6 h-6" />
             </div>
             <div>
               <h4 className="text-lg font-bold text-white font-heading">
                 Centrally Coordinated from Aliganj, Lucknow
               </h4>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-200 max-w-2xl mt-1 leading-relaxed">
                 Every district inquiry is triage-scored, audited, and reviewed at our corporate operations headquarters in Aliganj, Lucknow, guaranteeing uniform evidentiary standards and unified digital MIS reporting for insurer panels.
               </p>
             </div>
@@ -181,7 +181,7 @@ export default function CoverageMap({ onOpenTriageModal }) {
 
           <button
             onClick={onOpenTriageModal}
-            className="shrink-0 px-6 py-3.5 rounded-xl bg-bronze-500 hover:bg-bronze-400 text-navy-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all whitespace-nowrap"
+            className="shrink-0 px-6 py-3.5 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all whitespace-nowrap"
           >
             Assign Statewide Claim
           </button>

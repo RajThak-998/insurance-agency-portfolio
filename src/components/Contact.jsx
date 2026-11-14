@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import { 
   MapPin, 
   Mail, 
-  Phone, 
   Clock, 
   Send, 
   ShieldCheck, 
   Building, 
-  CheckCircle,
-  AlertCircle,
-  ArrowRight
+  CheckCircle
 } from 'lucide-react';
 import { COMPANY_INFO, ALL_75_DISTRICTS } from '../data/companyData';
 
@@ -33,17 +30,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#FAFAFC] relative overflow-hidden border-b border-slate-200/80">
+    <section id="contact" className="py-24 bg-slate-50 relative overflow-hidden border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold tracking-wider uppercase border border-slate-200">
-            <Mail className="w-3.5 h-3.5 text-bronze-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold tracking-wider uppercase border border-slate-200">
+            <Mail className="w-3.5 h-3.5 text-accent-600" />
             <span>Corporate Liaison & Allocation</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-navy-950 font-heading tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-brand-950 font-heading tracking-tight">
             Connect With Our Lucknow Command Center
           </h2>
 
@@ -58,13 +55,13 @@ export default function Contact() {
           <div className="lg:col-span-5 space-y-6">
             
             {/* Operational Office Card */}
-            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-luxury">
-              <div className="flex items-center gap-2 text-xs font-bold text-bronze-600 uppercase tracking-wider mb-2">
+            <div className="bg-white rounded-3xl p-7 border border-slate-200 shadow-md">
+              <div className="flex items-center gap-2 text-xs font-bold text-accent-600 uppercase tracking-wider mb-2">
                 <Building className="w-4 h-4" />
                 <span>Primary Operational Hub</span>
               </div>
               
-              <h3 className="text-xl font-bold text-navy-950 font-heading">
+              <h3 className="text-xl font-bold text-brand-950 font-heading">
                 {COMPANY_INFO.contact.operationalOffice.title}
               </h3>
               
@@ -75,14 +72,14 @@ export default function Contact() {
               
               <div className="mt-5 pt-5 border-t border-slate-100 space-y-3 text-xs text-slate-600">
                 <div className="flex items-center gap-2.5">
-                  <Clock className="w-4 h-4 text-navy-800 shrink-0" />
+                  <Clock className="w-4 h-4 text-brand-800 shrink-0" />
                   <span><strong>Working Hours:</strong> {COMPANY_INFO.contact.workingHours}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-navy-800 shrink-0" />
+                  <Mail className="w-4 h-4 text-brand-800 shrink-0" />
                   <a 
                     href={`mailto:${COMPANY_INFO.contact.officialEmail}`}
-                    className="text-navy-950 hover:underline font-medium font-mono"
+                    className="text-brand-900 hover:underline font-medium font-mono"
                   >
                     {COMPANY_INFO.contact.officialEmail}
                   </a>
@@ -91,13 +88,13 @@ export default function Contact() {
             </div>
 
             {/* Registered Office Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-card-subtle">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Statutory Registered Address</span>
               </div>
               
-              <h4 className="text-base font-bold text-navy-950 font-heading">
+              <h4 className="text-base font-bold text-brand-950 font-heading">
                 {COMPANY_INFO.contact.registeredOffice.title}
               </h4>
               
@@ -112,17 +109,17 @@ export default function Contact() {
             </div>
 
             {/* Google Maps Embed for Aliganj, Lucknow */}
-            <div className="bg-white rounded-3xl p-2.5 border border-slate-200 shadow-luxury overflow-hidden">
+            <div className="bg-white rounded-3xl p-2.5 border border-slate-200 shadow-md overflow-hidden">
               <div className="p-3 text-xs font-semibold text-slate-700 flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-bronze-600" />
+                  <MapPin className="w-3.5 h-3.5 text-accent-600" />
                   Aliganj, Lucknow Location Map
                 </span>
                 <a 
                   href="https://maps.google.com/?q=Aliganj+Lucknow+Uttar+Pradesh+226024" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-navy-800 hover:underline text-[11px] font-semibold"
+                  className="text-brand-800 hover:underline text-[11px] font-semibold"
                 >
                   Open in Google Maps ↗
                 </a>
@@ -144,9 +141,9 @@ export default function Contact() {
 
           {/* Right Column: Case Assignment & Inquiries Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-7 sm:p-9 lg:p-10 border border-slate-200 shadow-luxury">
+            <div className="bg-white rounded-3xl p-7 sm:p-9 lg:p-10 border border-slate-200 shadow-md">
               <div className="mb-7">
-                <h3 className="text-2xl font-bold text-navy-950 font-heading">
+                <h3 className="text-2xl font-bold text-brand-950 font-heading">
                   Submit Investigation Mandate / Inquiry
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -167,7 +164,7 @@ export default function Contact() {
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="px-6 py-2.5 text-xs font-semibold rounded-xl bg-navy-950 text-white hover:bg-navy-900 transition-colors"
+                    className="px-6 py-2.5 text-xs font-semibold rounded-xl bg-brand-950 text-white hover:bg-brand-900 transition-colors"
                   >
                     Submit Another Case
                   </button>
@@ -186,7 +183,7 @@ export default function Contact() {
                         placeholder="e.g. ICICI Lombard / Tata AIG / TPA"
                         value={formData.companyName}
                         onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium"
                       />
                     </div>
 
@@ -200,7 +197,7 @@ export default function Contact() {
                         placeholder="Your full name"
                         value={formData.contactPerson}
                         onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium"
                       />
                     </div>
                   </div>
@@ -216,7 +213,7 @@ export default function Contact() {
                         placeholder="claims.manager@insurer.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium"
                       />
                     </div>
 
@@ -230,7 +227,7 @@ export default function Contact() {
                         placeholder="+91 98XXX XXXXX"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium"
                       />
                     </div>
                   </div>
@@ -243,7 +240,7 @@ export default function Contact() {
                       <select
                         value={formData.claimType}
                         onChange={(e) => setFormData({ ...formData, claimType: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium bg-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium bg-white"
                       >
                         <option>Motor OD / TP Investigation</option>
                         <option>Theft & Staged Incident Verification</option>
@@ -262,7 +259,7 @@ export default function Contact() {
                       <select
                         value={formData.district}
                         onChange={(e) => setFormData({ ...formData, district: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium bg-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium bg-white"
                       >
                         {ALL_75_DISTRICTS.map((d) => (
                           <option key={d} value={d}>{d}</option>
@@ -283,7 +280,7 @@ export default function Contact() {
                           onClick={() => setFormData({ ...formData, urgency: opt })}
                           className={`py-2 px-2 rounded-xl text-[11px] font-semibold border transition-all ${
                             formData.urgency === opt
-                              ? 'bg-navy-950 text-white border-navy-950'
+                              ? 'bg-brand-950 text-white border-brand-950'
                               : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                           }`}
                         >
@@ -302,13 +299,13 @@ export default function Contact() {
                       placeholder="Include claim number, policy type, vehicle/hospital details, and specific red flags to investigate..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-navy-900 font-medium"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-bronze-500 via-amber-500 to-bronze-600 hover:from-amber-400 hover:to-bronze-500 text-navy-950 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full py-3.5 px-6 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
                   >
                     <Send className="w-4 h-4" />
                     <span>Dispatch Case Mandate to Lucknow HQ</span>

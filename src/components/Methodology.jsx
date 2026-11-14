@@ -2,30 +2,24 @@ import React from 'react';
 import { 
   GitCommit, 
   Clock, 
-  FileCheck, 
-  Camera, 
-  FileText, 
-  ShieldAlert, 
   CheckCircle,
-  HelpCircle,
-  AlertOctagon,
-  ArrowRight
+  FileText
 } from 'lucide-react';
 import { INVESTIGATION_PROCESS, SAMPLE_CASE_STUDIES } from '../data/companyData';
 
 export default function Methodology() {
   return (
-    <section id="process" className="py-24 bg-[#FAFAFC] relative overflow-hidden border-b border-slate-200/80">
+    <section id="process" className="py-24 bg-slate-50 relative overflow-hidden border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold tracking-wider uppercase border border-slate-200">
-            <GitCommit className="w-3.5 h-3.5 text-bronze-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold tracking-wider uppercase border border-slate-200">
+            <GitCommit className="w-3.5 h-3.5 text-accent-600" />
             <span>Evidentiary Protocol</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-navy-950 font-heading tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-brand-950 font-heading tracking-tight">
             The 5-Stage Evidentiary Integrity Protocol
           </h2>
 
@@ -39,20 +33,20 @@ export default function Methodology() {
           {INVESTIGATION_PROCESS.map((proc, idx) => (
             <div 
               key={proc.step}
-              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-card-subtle hover:shadow-luxury hover:border-bronze-400/40 transition-all duration-300 flex flex-col justify-between relative group"
+              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-700/50 transition-all duration-300 flex flex-col justify-between relative group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-2xl font-black text-navy-950 group-hover:text-bronze-600 transition-colors">
+                  <span className="font-mono text-2xl font-black text-brand-950 group-hover:text-accent-600 transition-colors">
                     {proc.step}
                   </span>
                   <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
-                    <Clock className="w-3 h-3 text-bronze-600" />
+                    <Clock className="w-3 h-3 text-accent-600" />
                     {proc.time}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-navy-950 font-heading mb-2 leading-snug">
+                <h3 className="text-sm font-bold text-brand-950 font-heading mb-2 leading-snug">
                   {proc.title}
                 </h3>
 
@@ -72,10 +66,10 @@ export default function Methodology() {
         {/* Case Studies / Fraud Detection Highlights */}
         <div id="cases" className="mt-20 pt-16 border-t border-slate-200">
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-bronze-600">
+            <span className="text-xs font-bold uppercase tracking-wider text-accent-600">
               Claims Defensibility In Action
             </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-navy-950 font-heading">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-950 font-heading">
               Field Investigation Outcomes
             </h3>
             <p className="text-xs sm:text-sm text-slate-600">
@@ -87,17 +81,17 @@ export default function Methodology() {
             {SAMPLE_CASE_STUDIES.map((c, i) => (
               <div 
                 key={i} 
-                className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-card-subtle hover:shadow-luxury transition-all flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="px-2.5 py-1 rounded bg-navy-100 text-navy-850 font-semibold border border-navy-200">
+                    <span className="px-2.5 py-1 rounded bg-brand-50 text-brand-900 font-semibold border border-brand-200">
                       {c.category}
                     </span>
                     <span className="text-slate-500 font-mono text-[11px]">{c.district}</span>
                   </div>
 
-                  <h4 className="text-base font-bold text-navy-950 font-heading">
+                  <h4 className="text-base font-bold text-brand-950 font-heading">
                     {c.title}
                   </h4>
 
@@ -107,8 +101,8 @@ export default function Methodology() {
                       <p>{c.situation}</p>
                     </div>
 
-                    <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80">
-                      <strong className="text-navy-950 block font-semibold text-xs mb-1">
+                    <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                      <strong className="text-brand-950 block font-semibold text-xs mb-1">
                         AMS Field Verification:
                       </strong>
                       <p className="text-slate-700">{c.findings}</p>
@@ -121,7 +115,7 @@ export default function Methodology() {
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
                     Insurer Outcome:
                   </span>
-                  <span className="font-semibold text-navy-950 text-right">
+                  <span className="font-semibold text-brand-950 text-right">
                     100% Repudiation Justified
                   </span>
                 </div>

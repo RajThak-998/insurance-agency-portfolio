@@ -10,7 +10,9 @@
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #1e293b;
-    background-color: #fafbfc;
+    background-color: #F8FAFC;
+    margin: 0;
+    padding: 0;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -19,58 +21,67 @@
   }
 }
 
-/* Executive Subtle Grid Background */
-.bg-tech-grid {
-  background-size: 40px 40px;
+/* Explicit Fallback Classes to Guarantee Flawless Theme Contrast */
+.bg-brand-950 { background-color: #060E1A !important; }
+.bg-brand-900 { background-color: #0B1E36 !important; }
+.bg-brand-850 { background-color: #0F2644 !important; }
+.bg-brand-800 { background-color: #143156 !important; }
+.text-brand-950 { color: #060E1A !important; }
+.text-brand-900 { color: #0B1E36 !important; }
+.text-brand-800 { color: #143156 !important; }
+
+.bg-accent-600 { background-color: #C56517 !important; }
+.bg-accent-500 { background-color: #E07E24 !important; }
+.bg-accent-400 { background-color: #F09A43 !important; }
+.text-accent-400 { color: #F09A43 !important; }
+.text-accent-500 { color: #E07E24 !important; }
+.text-accent-600 { color: #C56517 !important; }
+.border-accent-500 { border-color: #E07E24 !important; }
+
+/* Subtle Architectural Grid Pattern */
+.bg-sovereign-grid {
+  background-size: 36px 36px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
-.bg-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.bg-slate-grid {
+.bg-light-grid {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(11, 30, 54, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 30, 54, 0.035) 1px, transparent 1px);
 }
 
 /* Glassmorphism for High-End Corporate UI */
 .executive-glass {
-  background: rgba(10, 18, 32, 0.88);
+  background-color: rgba(11, 30, 54, 0.94) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .executive-card-dark {
-  background: linear-gradient(180deg, rgba(15, 26, 45, 0.75) 0%, rgba(10, 18, 32, 0.9) 100%);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #0D213B 0%, #081526 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Subtle Shimmer Border */
-.border-shimmer {
-  border: 1px solid rgba(217, 119, 6, 0.25);
-  box-shadow: 0 0 20px -3px rgba(217, 119, 6, 0.15);
+/* Smooth Transitions & Focus */
+button, a {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Scrollbar for Sleek Look */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #060b14;
+  background: #060E1A;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f293d;
+  background: #1B3D6B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #2F61A3;
 }
