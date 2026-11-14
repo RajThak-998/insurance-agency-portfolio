@@ -5,7 +5,23 @@ This document details all verified information implemented on the website, flags
 
 ---
 
-### 1. Verified Corporate Data Implemented
+### 1. Visual & Aesthetic Architecture (Executive Redesign)
+
+The landing page and overall design has been overhauled to deliver an institutional, high-end risk advisory aesthetic:
+
+* **Executive Color System**:
+  - **Primary Canvas**: Obsidian Midnight (`#060B14`) & Deep Slate Navy (`#0A1220`) for the Hero, Command Bar, and Footer.
+  - **Content Canvas**: Pristine Institutional Porcelain (`#FAFAFC` & `#FFFFFF`) with subtle 1px hair-line borders for maximum readability and corporate breathing room.
+  - **Accent**: Refined Burnished Bronze / Warm Ochre Amber (`#D97706` & `#B45309`) paired with subtle emerald verification badges. Replaces loud/cheap yellow and neon blues with an authoritative, established tone.
+* **Modern Executive Typography**:
+  - Primary font: **Plus Jakarta Sans** with geometric precision, optical letter tracking (`tracking-tight`), and crisp micro-labels.
+  - Technical Monospace: **JetBrains Mono** for corporate identification numbers (CIN, ROC, GPS coordinates).
+* **Interactive Aliganj Command Console**:
+  - An interactive terminal in the hero section displaying live status across the 4 UP Operational Hubs (Central, Western, Eastern, Bundelkhand), average response TAT, active field force counts, and chain-of-custody protocols.
+
+---
+
+### 2. Verified Corporate Data Implemented
 
 The website integrates all official records from the Ministry of Corporate Affairs (MCA), Zauba Corp, and company disclosures:
 
@@ -27,7 +43,7 @@ The website integrates all official records from the Ministry of Corporate Affai
 
 ---
 
-### 2. Items Requiring Review & Real Input (Placeholders Used)
+### 3. Items Requiring Review & Real Input (Placeholders Used)
 
 The following items currently contain placeholder / dummy data and should be updated when official assets are available:
 
@@ -57,7 +73,7 @@ The following items currently contain placeholder / dummy data and should be upd
 
 ---
 
-### 3. How to Update Data in One Place
+### 4. How to Update Data in One Place
 
 All core business details, contacts, service lines, and metrics are centralized in a single configuration file:
 👉 **`src/data/companyData.js`**
@@ -66,7 +82,7 @@ Editing this one file automatically updates the Header, Hero, About Us, Services
 
 ---
 
-### 4. Running & Building the Application
+### 5. Running & Building the Application
 
 #### To Run Development Server:
 ```bash
@@ -79,7 +95,3 @@ Accessible at: `http://localhost:5173/`
 npm run build
 ```
 Creates an optimized static bundle in the `dist/` folder ready for deployment.
-
-#### Deployment Options:
-- **Vercel / Netlify / Cloudflare Pages**: Connect your Git repository and deploy with build command `npm run build` and output directory `dist`.
-- **Traditional Web Hosting (cPanel / Apache / Nginx)**: Simply upload the contents of the `dist/` directory to `public_html`.
