@@ -10,7 +10,7 @@ import {
   Building,
   Check
 } from 'lucide-react';
-import { ALL_75_DISTRICTS, SERVICES } from '../data/companyData';
+import { ALL_75_DISTRICTS } from '../data/companyData';
 
 export default function CaseTriageModal({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -37,13 +37,13 @@ export default function CaseTriageModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-brand-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="relative bg-white rounded-2xl max-w-xl w-full border border-slate-200 shadow-elevated overflow-hidden animate-fadeIn">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-navy-950/85 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="relative bg-white rounded-3xl max-w-xl w-full border border-white/10 shadow-luxury-dark overflow-hidden animate-fadeIn">
         
         {/* Modal Header */}
-        <div className="bg-brand-900 text-white p-5 flex items-center justify-between border-b border-brand-800">
+        <div className="bg-navy-950 text-white p-5 sm:p-6 flex items-center justify-between border-b border-white/[0.08]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-accent-gold text-brand-950 flex items-center justify-center font-bold">
+            <div className="w-10 h-10 rounded-xl bg-bronze-500 text-navy-950 flex items-center justify-center font-bold">
               <FileText className="w-5 h-5" />
             </div>
             <div>
@@ -57,7 +57,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-brand-800 transition-colors"
+            className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -68,17 +68,17 @@ export default function CaseTriageModal({ isOpen, onClose }) {
             <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
               <Check className="w-8 h-8" />
             </div>
-            <h4 className="text-xl font-bold font-heading text-brand-950">
+            <h4 className="text-xl font-bold font-heading text-navy-950">
               Investigation Mandate Logged
             </h4>
-            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5 text-left max-w-md mx-auto">
+            <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-2 text-left max-w-md mx-auto">
               <div className="flex justify-between">
                 <span className="text-slate-500">Claim Vertical:</span>
-                <span className="font-semibold text-brand-900">{claimType}</span>
+                <span className="font-semibold text-navy-950">{claimType}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Target District:</span>
-                <span className="font-semibold text-brand-900">{district}</span>
+                <span className="font-semibold text-navy-950">{district}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Estimated Ground TAT:</span>
@@ -86,32 +86,32 @@ export default function CaseTriageModal({ isOpen, onClose }) {
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Confirmation Sent To:</span>
-                <span className="font-semibold text-brand-900">{contactEmail || 'Provided Email'}</span>
+                <span className="font-semibold text-navy-950">{contactEmail || 'Provided Email'}</span>
               </div>
             </div>
             <p className="text-xs text-slate-500">
-              Our central investigation desk at Aliganj, Lucknow has assigned a case reference and dispatched local field coordination.
+              Our central investigation desk at Aliganj, Lucknow has logged the reference and dispatched local field coordination.
             </p>
             <button
               onClick={() => {
                 setSubmitted(false);
                 onClose();
               }}
-              className="px-6 py-2.5 rounded-xl bg-brand-900 text-white text-xs font-semibold hover:bg-brand-800"
+              className="px-6 py-2.5 rounded-xl bg-navy-950 text-white text-xs font-semibold hover:bg-navy-900"
             >
               Close Window
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-6 sm:p-7 space-y-4">
             
             {/* Dynamic TAT Banner */}
-            <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between text-xs">
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-brand-700" />
+                <Clock className="w-4 h-4 text-bronze-600" />
                 <span className="text-slate-700">Estimated Field Response in {district}:</span>
               </div>
-              <span className="font-bold text-brand-900 bg-white px-2 py-0.5 rounded border border-blue-200">
+              <span className="font-bold text-navy-950 bg-white px-2.5 py-0.5 rounded border border-slate-200 font-mono">
                 {getEstimatedTAT()}
               </span>
             </div>
@@ -119,12 +119,12 @@ export default function CaseTriageModal({ isOpen, onClose }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Claim Investigation Type
+                  Claim Investigation Vertical
                 </label>
                 <select
                   value={claimType}
                   onChange={(e) => setClaimType(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium bg-white"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium bg-white focus:outline-none focus:ring-2 focus:ring-navy-900"
                 >
                   <option>Motor OD / TP Investigation</option>
                   <option>Theft & Staged Incident Verification</option>
@@ -142,7 +142,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium bg-white"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium bg-white focus:outline-none focus:ring-2 focus:ring-navy-900"
                 >
                   {ALL_75_DISTRICTS.map((d) => (
                     <option key={d} value={d}>{d}</option>
@@ -162,7 +162,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
                   placeholder="e.g. HDFC ERGO / ICICI Lombard"
                   value={insurerName}
                   onChange={(e) => setInsurerName(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-navy-900"
                 />
               </div>
 
@@ -175,7 +175,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
                   placeholder="e.g. CLM-UP-2026-904"
                   value={claimNo}
                   onChange={(e) => setClaimNo(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-navy-900"
                 />
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">
-                  Officer Official Email
+                  Officer Official Corporate Email
                 </label>
                 <input
                   type="email"
@@ -191,7 +191,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
                   placeholder="investigator.manager@insurer.com"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-navy-900"
                 />
               </div>
 
@@ -202,7 +202,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
                 <select
                   value={urgency}
                   onChange={(e) => setUrgency(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 font-medium bg-white"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 font-medium bg-white focus:outline-none focus:ring-2 focus:ring-navy-900"
                 >
                   <option>Standard SLA (48-72h)</option>
                   <option>Priority Verification (24-48h)</option>
@@ -214,7 +214,7 @@ export default function CaseTriageModal({ isOpen, onClose }) {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-accent-gold to-amber-500 hover:from-amber-400 hover:to-accent-goldDark text-brand-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-bronze-500 via-amber-500 to-bronze-600 hover:from-amber-400 hover:to-bronze-500 text-navy-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Transmit Mandate to Lucknow HQ</span>
