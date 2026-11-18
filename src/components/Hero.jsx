@@ -1,256 +1,219 @@
-import React, { useState } from 'react';
-import { 
-  ShieldCheck, 
-  MapPin, 
-  CheckCircle2, 
-  ArrowRight, 
-  ArrowUpRight,
-  Lock,
-  ChevronRight,
-  SearchCheck,
-  Building,
-  Activity
-} from 'lucide-react';
-import { COMPANY_INFO, KEY_METRICS, UP_REGIONS } from '../data/companyData';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+
+const SLIDES = [
+  {
+    id: 'motor-forensics',
+    image: '/images/ams-slide-motor.webp',
+    kicker: 'Insurance Investigation & Forensic Reconstruction',
+    title: 'Comprehensive Claims Forensics & Risk Mitigation',
+    subtitle: 'Protecting insurer loss ratios with dedicated on-ground field verification and evidentiary reconstruction.',
+  },
+  {
+    id: 'hospital-audit',
+    image: '/images/ams-slide-hospital.webp',
+    kicker: 'Health Insurance & Mediclaim Fraud Scrutiny',
+    title: 'Hospital IPD Scrutiny & Phantom Billing Audits',
+    subtitle: 'Inpatient register audits, bedside patient verification, and treating doctor cross-examination.',
+  },
+  {
+    id: 'commercial-property',
+    image: '/images/ams-slide-commercial.webp',
+    kicker: 'Commercial Property & Arson Investigation',
+    title: 'Commercial Asset, Fire & Stock Loss Surveys',
+    subtitle: 'High-quantum warehouse stock reconciliation, industrial loss analysis, and physical inventory audits.',
+  },
+  {
+    id: 'command-hub',
+    image: '/images/ams-slide-command.webp',
+    kicker: 'Operational Command & Field Network',
+    title: 'Ground-Truth Claims Intelligence & Scaled Reach',
+    subtitle: 'Centralized operations command coordinating vetted on-ground investigators with zero sub-contracting.',
+  }
+];
+
+const METRIC_CARDS = [
+  {
+    number: '120+',
+    label: 'Vetted Investigators',
+    sub: 'Dedicated On-Ground Network',
+  },
+  {
+    number: '24–48h',
+    label: 'Rapid Turnaround',
+    sub: 'Sub-24h Priority Scene Response',
+  },
+  {
+    number: '₹93.4L',
+    label: 'Annual Scale',
+    sub: 'FY25 Casework Volume & Run-Rate',
+  },
+  {
+    number: '15+',
+    label: 'Years Experience',
+    sub: 'Group Leadership Roots (ERE 2010)',
+  }
+];
 
 export default function Hero({ onOpenTriageModal }) {
-  const [activeSector, setActiveSector] = useState(0);
-  const currentSector = UP_REGIONS[activeSector];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  };
+
+  // Auto-advance slides every 6 seconds
+  useEffect(() => {
+    if (!isPaused) {
+      timerRef.current = setInterval(() => {
+        nextSlide();
+      }, 6000);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, currentSlide]);
+
+  const active = SLIDES[currentSlide];
 
   return (
-    <section className="relative bg-[#F8F9FA] dark:bg-[#090D16] text-slate-900 dark:text-slate-100 overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-150">
-      {/* Subtle Architectural Grid */}
-      <div className="absolute inset-0 bg-architectural-grid opacity-60 dark:opacity-40 pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="w-full bg-white dark:bg-[#090D16] pt-4 sm:pt-6 pb-12 sm:pb-16 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Asymmetric 12-Column Editorial Split (7 cols left / 5 cols right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          
-          {/* Left Column (7 cols): Brand Authority, Value Proposition & Commitments */}
-          <div className="lg:col-span-7 space-y-5">
+        {/* 1. Charterhouse-Style Visual Banner Slider (Deep Emerald & White Harmony) */}
+        <div 
+          className="relative min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] rounded-2xl overflow-hidden flex items-center justify-between shadow-lg select-none group"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Background Images Layer */}
+          {SLIDES.map((slide, idx) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out pointer-events-none ${
+                idx === currentSlide ? 'opacity-100 z-0' : 'opacity-0 -z-10'
+              }`}
+              style={{
+                backgroundImage: `url('${slide.image}')`,
+                backgroundPosition: 'center 40%',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          ))}
+
+          {/* Deep Forest Emerald / Pine Teal Scrim (NOT Navy Blue!) */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-[1]"
+            style={{
+              background: `
+                linear-gradient(135deg, rgba(12, 48, 36, 0.94) 0%, rgba(14, 58, 44, 0.88) 55%, rgba(18, 72, 55, 0.68) 100%),
+                linear-gradient(180deg, rgba(12, 48, 36, 0.3) 0%, rgba(12, 48, 36, 0.9) 100%)
+              `
+            }}
+          />
+
+          {/* Left Arrow Button */}
+          <button
+            onClick={prevSlide}
+            className="relative z-20 ml-3 sm:ml-6 p-2 sm:p-2.5 rounded-full bg-black/25 hover:bg-black/50 text-white/80 hover:text-white backdrop-blur-sm transition-all focus:outline-none"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          {/* Slide Text Content: Pure, Minimal, High-Impact */}
+          <div className="relative z-10 max-w-2xl px-4 sm:px-6 py-10 sm:py-14 text-white text-left flex-1 space-y-4">
             
-            {/* Regulatory Eyebrow Tag */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-200/70 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-xs font-medium text-slate-800 dark:text-slate-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
-              <span className="font-mono text-[11px] font-semibold text-slate-900 dark:text-slate-200">
-                CIN: {COMPANY_INFO.cin}
-              </span>
-              <span className="text-slate-400 dark:text-slate-600">|</span>
-              <span className="text-slate-700 dark:text-slate-300">ROC Kanpur</span>
-              <span className="text-slate-400 dark:text-slate-600 hidden sm:inline">|</span>
-              <span className="text-slate-700 dark:text-slate-300 hidden sm:inline">
-                Nov 15, 2018 ({COMPANY_INFO.yearsInOperation} Yrs Ops)
+            {/* Minimal Kicker */}
+            <div className="inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <span className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-amber-300 font-mono">
+                {active.kicker}
               </span>
             </div>
 
-            {/* Editorial Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12] text-slate-900 dark:text-white">
-              Ground-Truth Claims Investigation for{' '}
-              <span className="text-amber-800 dark:text-amber-400 underline decoration-amber-600/30 underline-offset-4">
-                Institutional Insurers
-              </span>{' '}
-              Across Uttar Pradesh
+            {/* Authoritative, Punchy H1 Headline */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.15] text-white">
+              {active.title}
             </h1>
 
-            {/* Editorial Subtitle */}
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl font-normal leading-relaxed">
-              Incorporated on November 15, 2018 in Lucknow, <strong className="text-slate-900 dark:text-white font-semibold">{COMPANY_INFO.name}</strong> combines over 15 years of group leadership heritage (ERE Group 2010) with full-time, vetted field investigators operating across <span className="font-semibold text-amber-800 dark:text-amber-400">all 75 UP districts</span>. We deliver court-defensible evidentiary dossiers that protect insurer loss ratios.
+            {/* Concise 1-Line Description */}
+            <p className="text-sm sm:text-base md:text-lg text-emerald-50/90 font-normal leading-relaxed max-w-xl">
+              {active.subtitle}
             </p>
 
-            {/* 4 Core Institutional Commitments Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs">
-              <div className="flex items-center gap-2.5 p-3 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
-                <span className="font-medium text-slate-800 dark:text-slate-200">Court-Defensible Chain of Custody</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
-                <span className="font-medium text-slate-800 dark:text-slate-200">Zero Sub-Contracting (100% Vetted Staff)</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
-                <span className="font-medium text-slate-800 dark:text-slate-200">Sub-24h First Response in Central UP</span>
-              </div>
-              <div className="flex items-center gap-2.5 p-3 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 dark:text-emerald-400 shrink-0" />
-                <span className="font-medium text-slate-800 dark:text-slate-200">15+ Yrs Group Heritage (ERE Group 2010)</span>
-              </div>
-            </div>
-
-            {/* Action CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
+            {/* Clean Action Buttons */}
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={onOpenTriageModal}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all active:scale-[0.98] border border-amber-800 dark:border-amber-500"
+                className="px-6 py-3 rounded-md bg-[#EA580C] hover:bg-[#D97706] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-md active:scale-[0.99] flex items-center gap-2"
               >
-                <span>Initiate Case Audit / Triage</span>
-                <ArrowUpRight className="w-4 h-4 opacity-80" />
+                <span>Assign Mandate</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
               <a
                 href="#services"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded bg-white dark:bg-[#111827] hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-xs border border-slate-200 dark:border-slate-800 transition-colors shadow-sm"
+                className="px-5 py-3 rounded-md bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-colors"
               >
-                <span>Investigation Verticals</span>
-                <ChevronRight className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                Explore Services
               </a>
-
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs font-semibold tracking-wide transition-colors"
-              >
-                <span>Empanelment Dossier</span>
-                <ArrowRight className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
-              </a>
-            </div>
-
-            {/* Compliance Credential Sub-strip */}
-            <div className="pt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800/80">
-              <span className="font-mono text-[11px] text-amber-800 dark:text-amber-400 font-medium">
-                Authorized Capital: {COMPANY_INFO.authorizedCapital}
-              </span>
-              <span className="text-slate-300 dark:text-slate-700">•</span>
-              <span>Paid-up: {COMPANY_INFO.paidUpCapital}</span>
-              <span className="text-slate-300 dark:text-slate-700">•</span>
-              <span className="font-mono text-[11px]">FY25: {COMPANY_INFO.annualRevenueScale}</span>
             </div>
 
           </div>
 
-          {/* Right Column (5 cols): Interactive Aliganj Command Desk Console */}
-          <div className="lg:col-span-5">
-            <div className="bg-white dark:bg-[#111827] rounded border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm dark:shadow-card-dark transition-colors">
-              
-              {/* Console Top Header */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 dark:bg-emerald-400 animate-pulse" />
-                  <div>
-                    <span className="font-sans font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white block">
-                      Aliganj Command Desk
-                    </span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono tabular-nums">
-                      Lucknow Central Ops Hub • 26.8928° N, 80.9330° E
-                    </span>
-                  </div>
-                </div>
-                <span className="text-[10px] font-mono font-bold text-amber-800 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-sm border border-amber-600/20 tabular-nums">
-                  ACTIVE SLA
-                </span>
-              </div>
+          {/* Right Arrow Button */}
+          <button
+            onClick={nextSlide}
+            className="relative z-20 mr-3 sm:ml-6 p-2 sm:p-2.5 rounded-full bg-black/25 hover:bg-black/50 text-white/80 hover:text-white backdrop-blur-sm transition-all focus:outline-none"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
 
-              {/* Regional Sector Switcher (Interactive) */}
-              <div className="mt-4">
-                <div className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
-                  <span>Operational Sector:</span>
-                  <span className="text-amber-800 dark:text-amber-400 font-mono text-[10px] font-bold tabular-nums">
-                    75 / 75 Districts Synced
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  {UP_REGIONS.map((region, idx) => (
-                    <button
-                      key={region.name}
-                      onClick={() => setActiveSector(idx)}
-                      className={`p-2.5 rounded text-left border transition-all text-xs ${
-                        activeSector === idx
-                          ? 'bg-slate-100 dark:bg-[#1E293B] border-amber-700 dark:border-amber-500 text-slate-950 dark:text-white font-semibold ring-1 ring-amber-700/30 dark:ring-amber-500/30'
-                          : 'bg-slate-50 dark:bg-[#0D1522] border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
-                      }`}
-                    >
-                      <div className="truncate text-xs font-semibold">{region.name.split(' (')[0]}</div>
-                      <div className="text-[10px] text-amber-700 dark:text-amber-400 mt-0.5 font-mono tabular-nums">
-                        {region.tat} TAT
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Active Sector Telemetry Display */}
-              <div className="mt-3.5 p-3.5 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800 space-y-2.5">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-900 dark:text-white">{currentSector.name}</span>
-                  <span className="text-[10px] font-mono font-semibold text-emerald-800 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 rounded-sm border border-emerald-300 dark:border-emerald-800/80 tabular-nums">
-                    {currentSector.officers}
-                  </span>
-                </div>
-
-                <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                  <strong className="text-slate-900 dark:text-white font-medium">Hub Nodes:</strong> {currentSector.hub}
-                </p>
-
-                <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-1">
-                  {currentSector.districts.slice(0, 5).map(d => (
-                    <span 
-                      key={d} 
-                      className="px-2 py-0.5 rounded-sm bg-white dark:bg-[#111827] text-[10px] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800"
-                    >
-                      {d}
-                    </span>
-                  ))}
-                  {currentSector.districts.length > 5 && (
-                    <span className="px-2 py-0.5 rounded-sm bg-amber-500/10 text-[10px] text-amber-800 dark:text-amber-400 border border-amber-600/20 font-mono tabular-nums">
-                      +{currentSector.districts.length - 5} more
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* Evidentiary Integrity Protocol Spec */}
-              <div className="mt-3.5 p-3 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <Lock className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500 shrink-0" />
-                  <div>
-                    <div className="font-semibold text-slate-900 dark:text-white text-[11px]">
-                      Evidentiary Chain-of-Custody
-                    </div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400">
-                      Geo-tagging • RTO records • Police FIR liaison
-                    </div>
-                  </div>
-                </div>
-                <span className="text-emerald-700 dark:text-emerald-400 font-mono text-[10px] font-bold tabular-nums">
-                  100% VALIDATED
-                </span>
-              </div>
-
-              {/* Console Action Button */}
+          {/* Minimal Bottom Dots Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            {SLIDES.map((_, idx) => (
               <button
-                onClick={onOpenTriageModal}
-                className="w-full mt-4 py-2.5 px-4 rounded bg-slate-900 hover:bg-slate-800 dark:bg-[#1E293B] dark:hover:bg-slate-700 text-white font-semibold text-xs tracking-wide transition-colors border border-slate-800 dark:border-slate-700 flex items-center justify-center gap-2 active:scale-[0.98]"
-              >
-                <SearchCheck className="w-3.5 h-3.5 text-amber-400" />
-                <span>Assign Claim Mandate for Field Review</span>
-              </button>
-
-            </div>
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                className={`transition-all rounded-full ${
+                  idx === currentSlide
+                    ? 'w-6 h-2 bg-[#EA580C]'
+                    : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
 
         </div>
 
-        {/* Bottom 6-KPI Credibility Strip */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800/80">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 text-center">
-            {KEY_METRICS.map((metric, idx) => (
-              <div 
-                key={idx} 
-                className="p-3.5 rounded bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm transition-colors"
-              >
-                <div className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight tabular-nums">
-                  {metric.value}
-                </div>
-                <div className="text-xs font-semibold text-amber-800 dark:text-amber-400 mt-1">
-                  {metric.label}
-                </div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
-                  {metric.sub}
-                </div>
+        {/* 2. Charterhouse-Style Prominent Elevated White Number Cards on Light Canvas */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-8 sm:pt-10">
+          {METRIC_CARDS.map((card, idx) => (
+            <div
+              key={idx}
+              className="bg-white dark:bg-[#0D1826] rounded-xl p-5 sm:p-6 text-center border border-slate-100 dark:border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-md transition-shadow"
+            >
+              <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#EA580C] font-mono tracking-tight tabular-nums">
+                {card.number}
               </div>
-            ))}
-          </div>
+              <div className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 mt-2">
+                {card.label}
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-normal mt-1">
+                {card.sub}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

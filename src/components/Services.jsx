@@ -1,233 +1,534 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Car, 
-  ShieldAlert, 
-  Building2, 
-  HeartHandshake, 
-  Network, 
-  CheckCircle, 
   ArrowRight, 
-  FileCheck, 
-  Crosshair, 
-  SearchCheck,
-  ChevronRight,
-  ShieldCheck,
-  ArrowUpRight
+  ChevronRight, 
+  ChevronLeft,
+  ShieldCheck, 
+  CheckCircle2, 
+  Check,
+  Car, 
+  HeartPulse, 
+  Building2, 
+  KeyRound 
 } from 'lucide-react';
-import { SERVICES } from '../data/companyData';
 
-const iconMap = {
-  Car,
-  ShieldAlert,
-  Building2,
-  HeartHandshake,
-  Network
-};
+const VERTICAL_SERVICES = [
+  {
+    id: 'motor',
+    number: '01',
+    title: 'Motor & Collision Forensics',
+    category: 'OD, TP & MACT DEFENSE',
+    icon: Car,
+    image: '/images/ams-clean-motor.webp',
+    accentColor: '#10B981',
+    accentBg: 'bg-emerald-500/10',
+    accentBorder: 'border-emerald-500',
+    subtitle: 'On-scene 3D laser accident reconstruction, impact dynamics, and staged collision detection.',
+    deliverables: [
+      '3D Laser Skid Telemetry & Impact Geometry',
+      'MACT Tribunal Court-Defensible Evidentiary Dossiers',
+      'Vehicle Damage Mismatch & RTO Corroboration'
+    ]
+  },
+  {
+    id: 'health',
+    number: '02',
+    title: 'Healthcare & Mediclaim Scrutiny',
+    category: 'CLINICAL INTEGRITY AUDIT',
+    icon: HeartPulse,
+    image: '/images/ams-clean-health.webp',
+    accentColor: '#EA580C',
+    accentBg: 'bg-amber-500/10',
+    accentBorder: 'border-[#EA580C]',
+    subtitle: 'Hospital IPD register verification, bedside patient audits, and clinical fraud prevention.',
+    deliverables: [
+      'Bedside Patient Physical Verification',
+      'Treating Doctor Interviews & Pathology Corroboration',
+      'Phantom Hospitalization & Billing Inflation Checks'
+    ]
+  },
+  {
+    id: 'commercial',
+    number: '03',
+    title: 'Commercial Asset & Arson Surveys',
+    category: 'HIGH-QUANTUM LOSS AUDIT',
+    icon: Building2,
+    image: '/images/ams-clean-commercial.webp',
+    accentColor: '#14B8A6',
+    accentBg: 'bg-teal-500/10',
+    accentBorder: 'border-teal-500',
+    subtitle: 'High-quantum logistics audits, industrial fire origin analysis, and stock reconciliation.',
+    deliverables: [
+      'High-Quantum Stock Count vs Accounting Filings',
+      'Industrial Fire Origin Analysis & Burn Patterns',
+      'Pre-Insurance Physical Asset Risk Mitigation'
+    ]
+  },
+  {
+    id: 'fraud',
+    number: '04',
+    title: 'Theft Forensics & Anti-Fraud',
+    category: 'OPTICAL LAB DIAGNOSTICS',
+    icon: KeyRound,
+    image: '/images/ams-clean-fraud.webp',
+    accentColor: '#F59E0B',
+    accentBg: 'bg-amber-500/10',
+    accentBorder: 'border-amber-500',
+    subtitle: 'Optical key metallurgy diagnostics, duplicate key examination, and FIR corroboration.',
+    deliverables: [
+      'Precision Key Metallurgy & Cut Diagnostics',
+      'Lock Tumbler & Electronic Trace Analysis',
+      'Police FIR, NCR & Untraced Report Scrutiny'
+    ]
+  }
+];
+
+const LIFECYCLE_STAGES = [
+  {
+    id: 'triage',
+    number: '01',
+    stageLabel: 'STAGE 1',
+    name: 'Triage & Scene Response',
+    shortTitle: 'Sub-24h Dispatch',
+    image: '/images/ams-stage-triage.webp',
+    accentColor: '#0F3D30',
+    activeBg: 'bg-[#F2F8F5] dark:bg-[#0D241C]',
+    activeBorder: 'border-emerald-600 dark:border-emerald-500',
+    headline: 'Immediate On-Ground Scene Response',
+    description: 'Rapid deployment within 2-4 hours for physical scene recreation, laser measurement, and time-stamped digital photographic telemetry.',
+    solutions: [
+      'Accident Scene Physical Reconstruction & Laser Geometry',
+      'Hospital Bedside IPD Verification & Doctor Corroboration',
+      'Commercial Property & Industrial Fire Origin Isolation'
+    ]
+  },
+  {
+    id: 'audit',
+    number: '02',
+    stageLabel: 'STAGE 2',
+    name: 'Forensic Audit & Scrutiny',
+    shortTitle: 'Lab Corroboration',
+    image: '/images/ams-stage-forensic.webp',
+    accentColor: '#EA580C',
+    activeBg: 'bg-[#FFF9F5] dark:bg-[#25150B]',
+    activeBorder: 'border-[#EA580C] dark:border-[#EA580C]',
+    headline: 'Multi-Layered Corroboration & Lab Diagnostics',
+    description: 'Cross-verifying claimed physical damage against manufacturer specifications, pathology databases, official police records, and financial books.',
+    solutions: [
+      'Optical Key Metallurgy & Tumbler Lab Diagnostics',
+      'Clinical Pathology Audits & Phantom Billing Elimination',
+      'High-Quantum Inventory Reconciliation vs Accounting Filings'
+    ]
+  },
+  {
+    id: 'dossier',
+    number: '03',
+    stageLabel: 'STAGE 3',
+    name: 'Court-Defensible Dossier',
+    shortTitle: 'Evidence Act Standard',
+    image: '/images/ams-stage-dossier.webp',
+    accentColor: '#144E3E',
+    activeBg: 'bg-[#F0F7F5] dark:bg-[#0A221C]',
+    activeBorder: 'border-teal-600 dark:border-teal-500',
+    headline: 'Audit-Ready Evidentiary Defense',
+    description: 'Standardized evidentiary dossiers prepared strictly under Indian Evidence Act protocols, with unbroken chain-of-custody for underwriting repudiation.',
+    solutions: [
+      'MACT Legal Evidentiary Defense Dossiers',
+      'Unbroken Chain-of-Custody Digital Telemetry',
+      'Underwriting Repudiation & Loss Ratio Protection'
+    ]
+  }
+];
 
 export default function Services({ onOpenTriageModal }) {
-  const [selectedService, setSelectedService] = useState(SERVICES[0]);
-  const SelectedIcon = iconMap[selectedService.iconName] || FileCheck;
+  const [currentServiceIdx, setCurrentServiceIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const serviceTimerRef = useRef(null);
+
+  const [activeStageIdx, setActiveStageIdx] = useState(1); // Default to Stage 2 as in reference mockup
+  const activeStage = LIFECYCLE_STAGES[activeStageIdx];
+
+  const nextService = () => {
+    setCurrentServiceIdx((prev) => (prev + 1) % VERTICAL_SERVICES.length);
+  };
+
+  const prevService = () => {
+    setCurrentServiceIdx((prev) => (prev - 1 + VERTICAL_SERVICES.length) % VERTICAL_SERVICES.length);
+  };
+
+  useEffect(() => {
+    if (!isPaused) {
+      serviceTimerRef.current = setInterval(() => {
+        nextService();
+      }, 5500);
+    }
+    return () => {
+      if (serviceTimerRef.current) clearInterval(serviceTimerRef.current);
+    };
+  }, [isPaused, currentServiceIdx]);
+
+  const activeService = VERTICAL_SERVICES[currentServiceIdx];
+  const ActiveIcon = activeService.icon;
 
   return (
-    <section id="services" className="py-20 lg:py-24 bg-[#F8F9FA] dark:bg-[#090D16] relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-150">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="services" className="py-16 sm:py-20 bg-white dark:bg-[#090D16] border-b border-slate-100 dark:border-slate-800 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
         
-        {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-200 text-xs font-semibold tracking-wider uppercase border border-slate-300 dark:border-slate-700">
-            <SearchCheck className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
-            <span>Core B2B Offerings</span>
+        {/* Section Heading & Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-[#0F3D30] dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider border border-emerald-200 dark:border-emerald-800 mb-2">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Investigation Verticals</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              Specialized Claims Verification Services
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
+              Court-defensible forensic investigation across four core risk verticals.
+            </p>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Specialized Claims Verification Verticals
-          </h2>
+          {/* Carousel Arrow Controls & Quick Selector Tabs */}
+          <div className="flex items-center justify-between sm:justify-end gap-3 flex-wrap sm:flex-nowrap">
+            {/* Quick Service Category Tabs (Desktop / Tablet) */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-slate-100 dark:bg-[#0D1826] p-1 rounded-lg border border-slate-200/80 dark:border-slate-800">
+              {VERTICAL_SERVICES.map((s, idx) => (
+                <button
+                  key={s.id}
+                  onClick={() => setCurrentServiceIdx(idx)}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all whitespace-nowrap ${
+                    idx === currentServiceIdx
+                      ? 'bg-white dark:bg-[#152336] text-slate-900 dark:text-white shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                  }`}
+                >
+                  {s.number} {s.title.split(' ')[0]}
+                </button>
+              ))}
+            </div>
 
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-            Tailored specifically for General Insurers, Health Underwriters, and Third-Party Administrators (TPAs) operating across all 75 districts of Uttar Pradesh.
-          </p>
+            {/* Counter & Arrows - Guaranteed Single Line */}
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="font-mono text-xs font-bold text-slate-500 mr-1 whitespace-nowrap shrink-0">
+                0{currentServiceIdx + 1} / 0{VERTICAL_SERVICES.length}
+              </span>
+              <button
+                onClick={prevService}
+                className="p-2.5 rounded-md bg-white dark:bg-[#0D1826] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-[#EA580C] hover:border-[#EA580C] shadow-xs transition-colors shrink-0"
+                aria-label="Previous service vertical"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={nextService}
+                className="p-2.5 rounded-md bg-white dark:bg-[#0D1826] border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-[#EA580C] hover:border-[#EA580C] shadow-xs transition-colors shrink-0"
+                aria-label="Next service vertical"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Unified Master-Detail Workbench (No duplicate cards) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* Left / Selector Rail (4 Columns on Desktop) */}
-          <div className="lg:col-span-4 space-y-2">
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1 mb-2 flex items-center justify-between">
-              <span>Select Investigation Vertical</span>
-              <span className="font-mono text-[10px]">5 Verticals Active</span>
-            </div>
+        {/* 1. Full-Visual Swiping Service Showcase (One Service at a Time like Track Record) */}
+        <div 
+          className="relative rounded-2xl overflow-hidden min-h-[460px] sm:min-h-[500px] lg:min-h-[540px] shadow-2xl flex items-end select-none group border border-slate-200/90 dark:border-slate-800 bg-slate-950"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Background Images with Crossfade */}
+          {VERTICAL_SERVICES.map((item, idx) => (
+            <div
+              key={item.id}
+              className={`absolute inset-0 transition-all duration-700 ease-in-out pointer-events-none ${
+                idx === currentServiceIdx ? 'opacity-100 z-0 scale-100' : 'opacity-0 -z-10 scale-105'
+              }`}
+              style={{
+                backgroundImage: `url('${item.image}')`,
+                backgroundPosition: 'center 40%',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          ))}
 
-            <div className="flex flex-col gap-2">
-              {SERVICES.map((service) => {
-                const Icon = iconMap[service.iconName] || FileCheck;
-                const isSelected = selectedService.id === service.id;
-                return (
-                  <button
-                    key={service.id}
-                    onClick={() => setSelectedService(service)}
-                    className={`w-full text-left p-3.5 rounded border transition-all flex items-start gap-3 relative ${
-                      isSelected
-                        ? 'bg-white dark:bg-[#111827] border-amber-700 dark:border-amber-500 shadow-sm ring-1 ring-amber-700/30 dark:ring-amber-500/30'
-                        : 'bg-white/60 dark:bg-[#0D1522]/80 border-slate-200 dark:border-slate-800/80 hover:bg-white dark:hover:bg-[#111827] hover:border-slate-300 dark:hover:border-slate-700'
-                    }`}
-                  >
-                    {/* Active Accent Indicator */}
-                    {isSelected && (
-                      <span className="absolute left-0 top-2 bottom-2 w-1 rounded-r bg-amber-700 dark:bg-amber-500" />
-                    )}
+          {/* Directional Scrim for High-Contrast Text Legibility */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-[1]"
+            style={{
+              background: `linear-gradient(90deg, rgba(6, 11, 20, 0.95) 0%, rgba(6, 11, 20, 0.85) 45%, rgba(6, 11, 20, 0.50) 75%, rgba(6, 11, 20, 0.20) 100%)`
+            }}
+          />
 
-                    <div className={`p-2 rounded shrink-0 mt-0.5 ${
-                      isSelected 
-                        ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-700/50' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
-                    }`}>
-                      <Icon className="w-4 h-4" />
-                    </div>
+          {/* Left Signature Accent Strip */}
+          <div 
+            className="absolute inset-y-0 left-0 w-3 transition-colors duration-500 z-[2]"
+            style={{ backgroundColor: activeService.accentColor }}
+          />
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1 mb-0.5">
-                        <span className={`text-xs font-bold truncate ${
-                          isSelected ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'
-                        }`}>
-                          {service.title}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
-                        {service.tagline}
-                      </p>
-                      <div className="mt-1.5 flex items-center gap-1.5">
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.2 rounded-sm bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 tabular-nums">
-                          {service.highlight.replace('Average Turnaround: ', 'TAT: ')}
-                        </span>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right / Detailed SOP & Evidentiary Deliverables Panel (8 Columns) */}
-          <div className="lg:col-span-8 bg-white dark:bg-[#111827] rounded border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm transition-colors">
+          {/* Content Pane */}
+          <div className="relative z-10 p-6 sm:p-12 text-white max-w-3xl space-y-5">
             
-            {/* Header Strip of Selected Vertical */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2.5 rounded bg-slate-100 dark:bg-[#1E293B] text-amber-800 dark:text-amber-400 border border-slate-200 dark:border-slate-700">
-                  <SelectedIcon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-                    {selectedService.title}
-                  </h3>
-                  <p className="text-xs font-semibold text-amber-800 dark:text-amber-400">
-                    {selectedService.tagline}
-                  </p>
-                </div>
+            {/* Kicker Row */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono text-xs font-bold text-slate-400">
+                VERTICAL {activeService.number}
+              </span>
+              <div 
+                className="w-8 h-8 rounded-md flex items-center justify-center shrink-0 shadow-sm"
+                style={{ backgroundColor: `${activeService.accentColor}30`, border: `1px solid ${activeService.accentColor}60` }}
+              >
+                <ActiveIcon className="w-4 h-4" style={{ color: activeService.accentColor }} />
               </div>
-
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded-sm bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30 tabular-nums">
-                  {selectedService.highlight}
-                </span>
-                <span className="hidden sm:inline-block font-mono text-xs text-slate-500 dark:text-slate-400">
-                  Pan-UP 75 Districts
-                </span>
-              </div>
+              <span 
+                className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-black/60 text-white/90 border border-white/10"
+              >
+                {activeService.category}
+              </span>
             </div>
+
+            {/* Title */}
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight">
+              {activeService.title}
+            </h3>
 
             {/* Description */}
-            <div className="mt-4">
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {selectedService.description}
-              </p>
+            <p className="text-xs sm:text-sm md:text-base text-slate-200 font-normal leading-relaxed max-w-2xl">
+              {activeService.subtitle}
+            </p>
+
+            {/* Core Deliverables Checkmarks */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-1">
+              {activeService.deliverables.map((item, dIdx) => (
+                <div 
+                  key={dIdx} 
+                  className="flex items-center gap-2 text-xs sm:text-sm text-slate-100 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-md border border-white/10"
+                >
+                  <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: activeService.accentColor }} />
+                  <span>{item}</span>
+                </div>
+              ))}
             </div>
 
-            {/* Scope & Evidentiary Deliverables */}
-            <div className="mt-5 space-y-2.5">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                Standard Scope & Evidentiary Deliverables:
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                {selectedService.deliverables.map((item, i) => (
-                  <div 
-                    key={i} 
-                    className="flex items-start gap-2 p-2.5 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800/80 text-slate-700 dark:text-slate-300"
-                  >
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="leading-snug">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Institutional Protocol Specs Box */}
-            <div className="mt-6 p-4 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800 space-y-3">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
-                <div className="flex items-center gap-2">
-                  <Crosshair className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                    SOP & Field Protocol Standards
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 rounded-sm border border-emerald-300 dark:border-emerald-800">
-                  IRDAI COMPLIANT
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div>
-                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Evidence Chain Standard</span>
-                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
-                    High-Res Geo-Tagged Photos, GPS Coordinates, Timestamped Video & Written Declarations
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Counterparts Scrutinized</span>
-                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
-                    Claimants, Eyewitnesses, Police Station IOs, Authorized Garages, RTOs & Hospital Staff
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Deliverable Format</span>
-                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
-                    Structured Digital Dossier (PDF/MIS), Executive Fraud Score & Court-Admissible Affidavit
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Field Response Guarantee</span>
-                  <p className="text-amber-800 dark:text-amber-400 font-bold mt-0.5 text-[11px] leading-relaxed">
-                    On-Site within 24h Central UP / 36-48h Outer Districts
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Bar */}
-            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 items-center justify-between">
+            {/* CTA Button */}
+            <div className="pt-2">
               <button
                 onClick={onOpenTriageModal}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs tracking-wide shadow-sm transition-all active:scale-[0.98] border border-amber-800 dark:border-amber-500"
+                className="px-6 py-3 rounded-md text-white font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg hover:brightness-110 active:scale-[0.99] flex items-center gap-2"
+                style={{ backgroundColor: activeService.accentColor }}
               >
-                <span>Assign {selectedService.title}</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span>Assign Mandate for Review</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
-
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-colors"
-              >
-                <span>Request Custom Corporate SLA Schedule</span>
-                <ChevronRight className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
-              </a>
             </div>
 
           </div>
 
+          {/* Top-Right Pagination Dots */}
+          <div className="absolute top-6 right-6 z-20 flex items-center gap-1.5">
+            {VERTICAL_SERVICES.map((item, idx) => (
+              <button
+                key={item.id}
+                onClick={() => setCurrentServiceIdx(idx)}
+                className={`transition-all rounded-full ${
+                  idx === currentServiceIdx
+                    ? 'w-8 h-2'
+                    : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+                }`}
+                style={{
+                  backgroundColor: idx === currentServiceIdx ? activeService.accentColor : undefined
+                }}
+                aria-label={`Go to service vertical ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+        </div>
+
+        {/* 2. Visual Step Timeline / Process Stepper ("AMS Delivers" Lifecycle - User Mockup Theme) */}
+        <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+          <div className="mb-10 max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              AMS Delivers Across Every Stage of the Claims & Risk Lifecycle
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+              Integrated forensic verification and court-defensible dossiers delivered across the claims continuum.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            
+            {/* Left: Vertical Step Timeline with Cards (3 Stages) */}
+            <div className="lg:col-span-6 relative pl-6 sm:pl-10 space-y-4">
+              
+              {/* Stepper Timeline Vertical Guide Line */}
+              <div className="absolute left-2.5 sm:left-4 top-5 bottom-8 w-0.5 border-l-2 border-dashed border-slate-300 dark:border-slate-700 pointer-events-none" />
+
+              {LIFECYCLE_STAGES.map((stage, idx) => {
+                const isActive = activeStageIdx === idx;
+                const isCompleted = idx < activeStageIdx;
+
+                return (
+                  <div key={stage.id} className="relative flex items-start gap-4 sm:gap-6 group">
+                    
+                    {/* Stepper Node Indicator */}
+                    <div className="absolute -left-6 sm:-left-10 top-4 z-10 flex items-center">
+                      {isCompleted ? (
+                        <div 
+                          onClick={() => setActiveStageIdx(idx)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0F3D30] dark:bg-emerald-600 text-white flex items-center justify-center shadow-md cursor-pointer hover:scale-110 transition-transform"
+                          title={`Completed: ${stage.name}`}
+                        >
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        </div>
+                      ) : isActive ? (
+                        <div className="flex items-center">
+                          <span className="hidden sm:inline-block text-[10px] font-mono font-bold uppercase tracking-wider text-[#EA580C] mr-2 -ml-12">
+                            Active
+                          </span>
+                          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 border-[#EA580C] bg-white dark:bg-[#090D16] flex items-center justify-center shadow-md">
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#EA580C]" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div 
+                          onClick={() => setActiveStageIdx(idx)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-400 dark:bg-slate-700 text-white flex items-center justify-center shadow-xs cursor-pointer hover:bg-slate-500 transition-colors"
+                          title={`Select: ${stage.name}`}
+                        >
+                          <span className="text-[10px] font-mono font-bold">0{idx + 1}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Stage Card */}
+                    {isActive ? (
+                      /* Active Stage Card: Highlighted Border, Background & Photo Preview */
+                      <div 
+                        onClick={() => setActiveStageIdx(idx)}
+                        className="flex-1 cursor-pointer rounded-2xl p-4 sm:p-5 border-2 border-[#EA580C] bg-[#FFFBF7] dark:bg-[#131D28] shadow-lg transition-all"
+                      >
+                        <div>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#EA580C]">
+                            {stage.stageLabel}
+                          </span>
+                          <h4 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
+                            {stage.name}
+                          </h4>
+                          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                            ({stage.shortTitle})
+                          </span>
+                        </div>
+
+                        {/* High-Resolution Bespoke Stage Photographic Image */}
+                        <div className="mt-3.5 rounded-xl overflow-hidden h-36 sm:h-44 w-full shadow-inner border border-slate-200/80 dark:border-slate-800">
+                          <img 
+                            src={stage.image} 
+                            alt={stage.name} 
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      /* Inactive Stage Card: Compact, Dark Institutional Aesthetic with Thumbnail */
+                      <div 
+                        onClick={() => setActiveStageIdx(idx)}
+                        className="flex-1 cursor-pointer rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800/80 bg-slate-900 text-white hover:bg-slate-800/95 transition-all shadow-md group flex items-center justify-between gap-4"
+                      >
+                        <div>
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                            {stage.stageLabel}
+                          </span>
+                          <h4 className="text-sm sm:text-base font-extrabold text-white group-hover:text-emerald-400 transition-colors">
+                            {stage.name}
+                          </h4>
+                          <span className="text-xs text-slate-400 font-medium">
+                            ({stage.shortTitle})
+                          </span>
+                        </div>
+
+                        {/* Compact thumbnail preview on inactive card */}
+                        <div className="w-16 h-12 sm:w-20 sm:h-14 rounded-lg overflow-hidden shrink-0 border border-white/10 opacity-75 group-hover:opacity-100 transition-opacity">
+                          <img 
+                            src={stage.image} 
+                            alt={stage.name} 
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                );
+              })}
+
+            </div>
+
+            {/* Right: Detailed Presentation Card (Mockup Style) */}
+            <div className="lg:col-span-6 bg-white dark:bg-[#0E1726] rounded-2xl p-6 sm:p-8 lg:p-9 shadow-xl border border-slate-200/90 dark:border-slate-800 space-y-6 flex flex-col justify-between">
+              
+              <div className="space-y-6">
+                {/* Active Stage Header with Accent Bar */}
+                <div 
+                  className="pl-4 border-l-4 space-y-2 transition-all duration-300"
+                  style={{ borderColor: activeStage.accentColor }}
+                >
+                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#EA580C]">
+                    STAGE {activeStage.number} • {activeStage.name.toUpperCase()}
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                    {activeStage.headline}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                    {activeStage.description}
+                  </p>
+                </div>
+
+                {/* Deliverables Section with Numbered Badges */}
+                <div className="space-y-3 pt-2">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                    CORE DELIVERABLES
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {activeStage.solutions.map((item, idx) => (
+                      <div
+                        key={idx}
+                        onClick={onOpenTriageModal}
+                        className="group cursor-pointer p-3 sm:p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100/90 dark:bg-slate-900/70 dark:hover:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-[#EA580C] dark:hover:border-[#EA580C] transition-all flex items-center justify-between shadow-xs"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 rounded-lg bg-amber-500/10 text-[#EA580C] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-amber-500/20">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-[#EA580C] transition-colors">
+                            {item}
+                          </span>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#EA580C] group-hover:translate-x-1 transition-all shrink-0 ml-2" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct Action Button */}
+              <div className="pt-4">
+                <button
+                  onClick={onOpenTriageModal}
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#EA580C] hover:bg-[#D97706] text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-md active:scale-[0.99] flex items-center justify-center gap-2"
+                >
+                  <span>Assign Case for this Stage</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+            </div>
+
+          </div>
         </div>
 
       </div>

@@ -1,0 +1,114 @@
+{
+  "kroll": {
+    "title": "Kroll | Financial and Risk Advisory Solutions",
+    "h1Text": "Stay Ahead with Kroll",
+    "h1Styles": {
+      "fontFamily": "\"Nunito Sans\", sans-serif",
+      "fontSize": "56px",
+      "fontWeight": "200",
+      "lineHeight": "61.6px",
+      "letterSpacing": "normal",
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgb(229, 231, 235)",
+      "boxShadow": "none"
+    },
+    "navStyles": {
+      "fontFamily": "\"Nunito Sans\", sans-serif",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "lineHeight": "25.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(0, 20, 36)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgb(229, 231, 235)",
+      "boxShadow": "none"
+    },
+    "heroStyles": {
+      "fontFamily": "\"Nunito Sans\", sans-serif",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "lineHeight": "25.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(0, 20, 36)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgb(229, 231, 235)",
+      "boxShadow": "none"
+    },
+    "buttonStyles": {
+      "fontFamily": "\"Nunito Sans\", sans-serif",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "lineHeight": "25.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(20, 72, 127)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgb(229, 231, 235)",
+      "boxShadow": "none"
+    }
+  },
+  "controlrisks": {
+    "title": "Control Risks | Strategic Intelligence and Security",
+    "h1Text": "RiskMap 2027",
+    "h1Styles": {
+      "fontFamily": "\"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+      "fontSize": "44px",
+      "fontWeight": "500",
+      "lineHeight": "47.2px",
+      "letterSpacing": "normal",
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(255, 255, 255)",
+      "boxShadow": "none"
+    },
+    "navStyles": {
+      "fontFamily": "\"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "rgb(205, 215, 218)",
+      "backgroundColor": "rgb(255, 255, 255)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(205, 215, 218)",
+      "boxShadow": "none"
+    },
+    "heroStyles": {
+      "fontFamily": "\"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "rgb(205, 215, 218)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(205, 215, 218)",
+      "boxShadow": "none"
+    },
+    "buttonStyles": {
+      "fontFamily": "\"Open Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "rgb(0, 0, 0)",
+      "backgroundColor": "rgb(255, 255, 255)",
+      "padding": "16px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none"
+    }
+  }
+}
