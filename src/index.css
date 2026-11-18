@@ -12,6 +12,13 @@
     margin: 0;
     padding: 0;
   }
+
+  /* Default 125% Zoom for Desktop Screens for Fuller, High-Impact Presentation */
+  @media (min-width: 1024px) {
+    body {
+      zoom: 1.25;
+    }
+  }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;

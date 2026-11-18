@@ -31,7 +31,7 @@ export default function App() {
           <Contact onOpenTriageModal={handleOpenTriage} />
         </main>
 
-        <Footer />
+        <Footer onOpenTriageModal={handleOpenTriage} />
 
         <CaseTriageModal 
           isOpen={isTriageModalOpen} 

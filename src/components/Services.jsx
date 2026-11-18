@@ -360,10 +360,10 @@ export default function Services({ onOpenTriageModal }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
             {/* Left: Vertical Step Timeline with Cards (3 Stages) */}
-            <div className="lg:col-span-6 relative pl-6 sm:pl-10 space-y-4">
+            <div className="lg:col-span-6 relative pl-8 sm:pl-10 space-y-4">
               
               {/* Stepper Timeline Vertical Guide Line */}
-              <div className="absolute left-2.5 sm:left-4 top-5 bottom-8 w-0.5 border-l-2 border-dashed border-slate-300 dark:border-slate-700 pointer-events-none" />
+              <div className="absolute left-3 sm:left-4 top-5 bottom-8 w-0.5 border-l-2 border-dashed border-slate-300 dark:border-slate-700 pointer-events-none" />
 
               {LIFECYCLE_STAGES.map((stage, idx) => {
                 const isActive = activeStageIdx === idx;
@@ -373,7 +373,7 @@ export default function Services({ onOpenTriageModal }) {
                   <div key={stage.id} className="relative flex items-start gap-4 sm:gap-6 group">
                     
                     {/* Stepper Node Indicator */}
-                    <div className="absolute -left-6 sm:-left-10 top-4 z-10 flex items-center">
+                    <div className="absolute -left-8 sm:-left-10 top-4 z-10 flex items-center">
                       {isCompleted ? (
                         <div 
                           onClick={() => setActiveStageIdx(idx)}
@@ -383,13 +383,8 @@ export default function Services({ onOpenTriageModal }) {
                           <Check className="w-3.5 h-3.5 stroke-[3]" />
                         </div>
                       ) : isActive ? (
-                        <div className="flex items-center">
-                          <span className="hidden sm:inline-block text-[10px] font-mono font-bold uppercase tracking-wider text-[#EA580C] mr-2 -ml-12">
-                            Active
-                          </span>
-                          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 border-[#EA580C] bg-white dark:bg-[#090D16] flex items-center justify-center shadow-md">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#EA580C]" />
-                          </div>
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 border-[#EA580C] bg-white dark:bg-[#090D16] flex items-center justify-center shadow-md">
+                          <div className="w-2.5 h-2.5 rounded-full bg-[#EA580C]" />
                         </div>
                       ) : (
                         <div 
@@ -409,17 +404,20 @@ export default function Services({ onOpenTriageModal }) {
                         onClick={() => setActiveStageIdx(idx)}
                         className="flex-1 cursor-pointer rounded-2xl p-4 sm:p-5 border-2 border-[#EA580C] bg-[#FFFBF7] dark:bg-[#131D28] shadow-lg transition-all"
                       >
-                        <div>
+                        <div className="flex items-center justify-between">
                           <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#EA580C]">
                             {stage.stageLabel}
                           </span>
-                          <h4 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
-                            {stage.name}
-                          </h4>
-                          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                            ({stage.shortTitle})
+                          <span className="px-2 py-0.5 rounded-full bg-[#EA580C]/10 text-[#EA580C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#EA580C]/20">
+                            Active Stage
                           </span>
                         </div>
+                        <h4 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug mt-1">
+                          {stage.name}
+                        </h4>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                          ({stage.shortTitle})
+                        </span>
 
                         {/* High-Resolution Bespoke Stage Photographic Image */}
                         <div className="mt-3.5 rounded-xl overflow-hidden h-36 sm:h-44 w-full shadow-inner border border-slate-200/80 dark:border-slate-800">
