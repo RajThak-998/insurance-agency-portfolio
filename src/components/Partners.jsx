@@ -18,17 +18,17 @@ export default function Partners() {
   ];
 
   return (
-    <section className="py-20 bg-white border-b border-slate-200">
+    <section className="py-20 bg-[#F8F9FA] dark:bg-[#090D16] border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-150">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-accent-600">
+          <span className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-400 font-mono">
             Carrier Compatibility
           </span>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-950 font-heading">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Built for India’s Leading Insurers & TPAs
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             Our reporting templates, evidence chain-of-custody, and investigative workflows integrate seamlessly with the claims management platforms of India’s top underwriters.
           </p>
         </div>
@@ -38,15 +38,15 @@ export default function Partners() {
           {sampleInsurers.map((ins, i) => (
             <div 
               key={i} 
-              className="bg-slate-50 hover:bg-white rounded-2xl p-4 border border-slate-200 hover:border-brand-700/40 text-center shadow-sm hover:shadow-md transition-all duration-200 flex flex-col items-center justify-center min-h-[96px] group"
+              className="bg-white dark:bg-[#111827] rounded p-4 border border-slate-200 dark:border-slate-800 text-center shadow-sm hover:border-amber-600/40 dark:hover:border-amber-500/40 transition-all flex flex-col items-center justify-center min-h-[96px] group"
             >
-              <div className="w-8 h-8 rounded-xl bg-brand-50 text-brand-900 flex items-center justify-center mb-2.5 group-hover:bg-brand-950 group-hover:text-accent-400 transition-colors">
+              <div className="w-8 h-8 rounded bg-slate-100 dark:bg-[#1E293B] text-slate-700 dark:text-slate-300 flex items-center justify-center mb-2 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors border border-slate-200 dark:border-slate-700">
                 <Building className="w-4 h-4" />
               </div>
-              <span className="text-xs font-bold text-slate-800 group-hover:text-brand-950 transition-colors">
+              <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-amber-800 dark:group-hover:text-amber-400 transition-colors">
                 {ins.name}
               </span>
-              <span className="text-[10px] text-slate-400 mt-0.5">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                 {ins.type}
               </span>
             </div>
@@ -54,7 +54,7 @@ export default function Partners() {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-xs text-slate-500 italic max-w-xl mx-auto">
+          <p className="text-xs text-slate-500 dark:text-slate-400 italic max-w-xl mx-auto">
             * Names listed reflect investigation compatibility with prevailing IRDAI claims SOPs. Corporate claims managers can request our institutional empanelment dossier directly.
           </p>
         </div>

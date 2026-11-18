@@ -3,12 +3,8 @@ import {
   MapPin, 
   Search, 
   CheckCircle2, 
-  Clock, 
-  Users, 
-  ShieldCheck, 
-  Building,
   Navigation,
-  ArrowRight
+  X
 } from 'lucide-react';
 import { UP_REGIONS, ALL_75_DISTRICTS } from '../data/companyData';
 
@@ -21,71 +17,75 @@ export default function CoverageMap({ onOpenTriageModal }) {
   );
 
   return (
-    <section id="coverage" className="py-24 bg-white relative overflow-hidden border-b border-slate-200">
+    <section id="coverage" className="py-20 lg:py-24 bg-[#F1F5F9] dark:bg-[#0D1522] relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-150">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold tracking-wider uppercase border border-slate-200">
-            <Navigation className="w-3.5 h-3.5 text-accent-600" />
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-200 text-xs font-semibold tracking-wider uppercase border border-slate-300 dark:border-slate-700">
+            <Navigation className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
             <span>Statewide Operational Matrix</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-brand-950 font-heading tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             100% Pan-UP Reach Across All 75 Districts
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
-            From urban industrial belts to remote gram panchayats, our dedicated district field investigators ensure rapid on-site arrival without secondary sub-contracting or delays.
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            From urban commercial hubs to remote tehsils, our dedicated field investigators ensure swift on-site presence without secondary sub-contracting or delays.
           </p>
         </div>
 
-        {/* District Verification Search Box (Interactive Tool for Claims Managers) */}
-        <div className="mt-12 max-w-2xl mx-auto">
-          <div className="bg-slate-50 p-2.5 sm:p-3.5 rounded-2xl border border-slate-300 shadow-md">
+        {/* Refined District Verification Search Box (Zero clipping/overlap) */}
+        <div className="max-w-2xl mx-auto mb-14">
+          <div className="bg-white dark:bg-[#111827] p-2.5 sm:p-3 rounded border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="relative flex items-center">
-              <Search className="w-5 h-5 text-slate-400 absolute left-4" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search any UP district (e.g., Lucknow, Sitapur, Gorakhpur, Agra, Varanasi)..."
+                placeholder="Search any UP district (e.g. Lucknow, Sitapur, Gorakhpur, Agra)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-28 py-3 bg-white rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-900 font-medium text-slate-800 placeholder-slate-400"
+                className="w-full pl-10 pr-36 py-2.5 bg-slate-50 dark:bg-[#0D1522] rounded border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:ring-1 focus:ring-amber-600 font-medium text-slate-900 dark:text-white placeholder-slate-400"
               />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-32 text-xs text-slate-400 hover:text-slate-600 font-medium"
-                >
-                  Clear
-                </button>
-              )}
-              <span className="hidden sm:inline-block absolute right-3 px-3 py-1 rounded-lg bg-brand-950 text-accent-400 text-xs font-mono font-bold">
-                75 / 75 Active
-              </span>
+              <div className="absolute right-2 flex items-center gap-1.5">
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded"
+                    title="Clear search"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded-sm bg-slate-200 dark:bg-[#1E293B] text-slate-700 dark:text-slate-300 text-[11px] font-mono font-bold tabular-nums">
+                  75 / 75 Active
+                </span>
+              </div>
             </div>
 
             {/* Live Filter Results */}
             {searchQuery && (
-              <div className="mt-3 p-4 bg-white rounded-xl border border-slate-200 max-h-56 overflow-y-auto">
-                <div className="text-xs text-slate-500 font-semibold mb-2">
-                  Matching Districts ({filteredDistricts.length} active nodes):
+              <div className="mt-3 p-3 bg-slate-50 dark:bg-[#0D1522] rounded border border-slate-200 dark:border-slate-800 max-h-56 overflow-y-auto">
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold mb-2 flex items-center justify-between">
+                  <span>Matching Districts ({filteredDistricts.length} active nodes):</span>
+                  <span className="font-mono text-[10px] text-amber-800 dark:text-amber-400">100% Verified Presence</span>
                 </div>
                 {filteredDistricts.length > 0 ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                     {filteredDistricts.map((district) => (
                       <div 
                         key={district} 
-                        className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg text-xs font-semibold text-brand-950 border border-slate-200"
+                        className="flex items-center gap-1.5 p-2 bg-white dark:bg-[#111827] rounded text-xs font-semibold text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                         <span className="truncate">{district}</span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-amber-700 p-2 bg-amber-50 rounded-lg">
-                    No district matched "{searchQuery}". Note that AMS covers all 75 officially recognized districts of Uttar Pradesh.
+                  <p className="text-xs text-amber-800 dark:text-amber-400 p-2 bg-amber-50 dark:bg-amber-950/30 rounded border border-amber-200 dark:border-amber-900/50">
+                    No district matched "{searchQuery}". Note: Autocratic Management Services covers all 75 officially recognized revenue districts of Uttar Pradesh.
                   </p>
                 )}
               </div>
@@ -93,57 +93,51 @@ export default function CoverageMap({ onOpenTriageModal }) {
           </div>
         </div>
 
-        {/* Regional Hub Cards */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4 Regional Division Cards (Consistent height & no artificial blacking-out) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {UP_REGIONS.map((region, idx) => {
             const isHQ = idx === 0;
             return (
               <div 
                 key={region.name}
-                className={`rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between ${
-                  isHQ 
-                    ? 'bg-brand-950 text-white border-brand-800 shadow-xl' 
-                    : 'bg-slate-50 text-slate-800 border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'
-                }`}
+                className="bg-white dark:bg-[#111827] rounded p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:border-amber-600/50 dark:hover:border-amber-500/50 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3.5">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
-                      isHQ ? 'bg-accent-500 text-white' : 'bg-brand-100 text-brand-900'
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm font-mono ${
+                      isHQ 
+                        ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-700/60' 
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
                     }`}>
-                      {isHQ ? 'Central Command HQ' : 'Regional Division'}
+                      {isHQ ? 'HQ Central Hub' : 'Regional Hub'}
                     </span>
-                    <span className={`text-xs font-mono font-semibold ${isHQ ? 'text-emerald-400' : 'text-emerald-700'}`}>
+                    <span className="text-xs font-mono font-semibold text-emerald-700 dark:text-emerald-400 tabular-nums">
                       {region.tat}
                     </span>
                   </div>
 
-                  <h3 className={`text-lg font-bold font-heading ${isHQ ? 'text-white' : 'text-brand-950'}`}>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
                     {region.name}
                   </h3>
-                  <p className={`text-xs font-medium mt-0.5 ${isHQ ? 'text-slate-300' : 'text-slate-500'}`}>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Primary Hubs: {region.hub}
                   </p>
 
-                  <div className="mt-4 pt-4 border-t border-slate-200/20 space-y-2">
-                    <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                      Core District Nodes:
+                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      Sample District Nodes:
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1">
                       {region.districts.slice(0, 6).map((d) => (
                         <span 
                           key={d} 
-                          className={`text-[11px] px-2 py-0.5 rounded ${
-                            isHQ 
-                              ? 'bg-brand-900 text-slate-200 border border-brand-800' 
-                              : 'bg-white text-slate-700 border border-slate-200'
-                          }`}
+                          className="text-[10px] px-2 py-0.5 rounded-sm bg-slate-50 dark:bg-[#0D1522] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800"
                         >
                           {d}
                         </span>
                       ))}
                       {region.districts.length > 6 && (
-                        <span className={`text-[11px] px-2 py-0.5 rounded font-mono font-semibold ${isHQ ? 'text-accent-400' : 'text-brand-800'}`}>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-sm bg-amber-500/10 text-amber-800 dark:text-amber-400 font-mono tabular-nums border border-amber-600/20">
                           +{region.districts.length - 6} more
                         </span>
                       )}
@@ -151,40 +145,20 @@ export default function CoverageMap({ onOpenTriageModal }) {
                   </div>
                 </div>
 
-                <div className={`mt-6 pt-4 border-t ${isHQ ? 'border-brand-800' : 'border-slate-200'} flex items-center justify-between text-xs`}>
-                  <div className="flex items-center gap-1.5">
-                    <Users className={`w-3.5 h-3.5 ${isHQ ? 'text-accent-400' : 'text-brand-800'}`} />
-                    <span className={isHQ ? 'text-slate-300' : 'text-slate-600'}>{region.officers}</span>
-                  </div>
-                  <span className={`font-semibold ${isHQ ? 'text-accent-400' : 'text-brand-950'}`}>Active Field SLA</span>
+                <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                  <span className="font-mono text-[11px] tabular-nums font-semibold text-slate-800 dark:text-slate-200">
+                    {region.officers}
+                  </span>
+                  <button
+                    onClick={onOpenTriageModal}
+                    className="text-[11px] font-semibold text-amber-800 dark:text-amber-400 hover:underline"
+                  >
+                    Triage District →
+                  </button>
                 </div>
               </div>
             );
           })}
-        </div>
-
-        {/* Central Command Callout Strip */}
-        <div className="mt-14 bg-gradient-to-r from-brand-950 via-brand-900 to-brand-950 text-white rounded-3xl border border-brand-800 p-7 sm:p-9 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-brand-900 text-accent-400 flex items-center justify-center shrink-0 border border-brand-800">
-              <Building className="w-6 h-6" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-white font-heading">
-                Centrally Coordinated from Aliganj, Lucknow
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-200 max-w-2xl mt-1 leading-relaxed">
-                Every district inquiry is triage-scored, audited, and reviewed at our corporate operations headquarters in Aliganj, Lucknow, guaranteeing uniform evidentiary standards and unified digital MIS reporting for insurer panels.
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={onOpenTriageModal}
-            className="shrink-0 px-6 py-3.5 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all whitespace-nowrap"
-          >
-            Assign Statewide Claim
-          </button>
         </div>
 
       </div>

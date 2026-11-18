@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,7 +11,6 @@ import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CaseTriageModal from './components/CaseTriageModal';
-import ThemeSwitcher from './components/ThemeSwitcher';
 
 export default function App() {
   const [isTriageModalOpen, setIsTriageModalOpen] = useState(false);
@@ -24,29 +24,28 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      <Header onOpenTriageModal={handleOpenTriage} />
-      
-      <main className="flex-1">
-        <Hero onOpenTriageModal={handleOpenTriage} />
-        <About />
-        <Services onOpenTriageModal={handleOpenTriage} />
-        <CoverageMap onOpenTriageModal={handleOpenTriage} />
-        <Methodology />
-        <Leadership />
-        <Partners />
-        <Contact />
-      </main>
+    <ThemeProvider>
+      <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#090D16] text-[#0F172A] dark:text-[#F1F5F9] flex flex-col font-sans transition-colors duration-150 selection:bg-amber-600 selection:text-white">
+        <Header onOpenTriageModal={handleOpenTriage} />
+        
+        <main className="flex-1">
+          <Hero onOpenTriageModal={handleOpenTriage} />
+          <About />
+          <Services onOpenTriageModal={handleOpenTriage} />
+          <CoverageMap onOpenTriageModal={handleOpenTriage} />
+          <Methodology />
+          <Leadership />
+          <Partners />
+          <Contact />
+        </main>
 
-      <Footer />
+        <Footer />
 
-      <CaseTriageModal 
-        isOpen={isTriageModalOpen} 
-        onClose={handleCloseTriage} 
-      />
-
-      {/* Real-time Interactive Color Theme Explorer */}
-      <ThemeSwitcher />
-    </div>
+        <CaseTriageModal 
+          isOpen={isTriageModalOpen} 
+          onClose={handleCloseTriage} 
+        />
+      </div>
+    </ThemeProvider>
   );
 }

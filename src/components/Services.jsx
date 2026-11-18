@@ -10,7 +10,9 @@ import {
   FileCheck, 
   Crosshair, 
   SearchCheck,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  ArrowUpRight
 } from 'lucide-react';
 import { SERVICES } from '../data/companyData';
 
@@ -24,195 +26,208 @@ const iconMap = {
 
 export default function Services({ onOpenTriageModal }) {
   const [selectedService, setSelectedService] = useState(SERVICES[0]);
+  const SelectedIcon = iconMap[selectedService.iconName] || FileCheck;
 
   return (
-    <section id="services" className="py-24 bg-slate-50 relative overflow-hidden border-b border-slate-200">
+    <section id="services" className="py-20 lg:py-24 bg-[#F8F9FA] dark:bg-[#090D16] relative overflow-hidden border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-150">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold tracking-wider uppercase border border-slate-200">
-            <SearchCheck className="w-3.5 h-3.5 text-accent-600" />
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-white dark:bg-[#111827] text-slate-800 dark:text-slate-200 text-xs font-semibold tracking-wider uppercase border border-slate-300 dark:border-slate-700">
+            <SearchCheck className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
             <span>Core B2B Offerings</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-brand-950 font-heading tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Specialized Claims Verification Verticals
           </h2>
 
-          <p className="text-base text-slate-600 leading-relaxed">
-            Tailored specifically for General Insurers, Health Underwriters, and Third-Party Administrators (TPAs) operating across the state of Uttar Pradesh.
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            Tailored specifically for General Insurers, Health Underwriters, and Third-Party Administrators (TPAs) operating across all 75 districts of Uttar Pradesh.
           </p>
         </div>
 
-        {/* Services Navigation Pills / Tabs */}
-        <div className="mt-12 flex flex-wrap justify-center gap-2 sm:gap-3">
-          {SERVICES.map((service) => {
-            const Icon = iconMap[service.iconName] || FileCheck;
-            const isSelected = selectedService.id === service.id;
-            return (
-              <button
-                key={service.id}
-                onClick={() => setSelectedService(service)}
-                className={`flex items-center gap-2 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                  isSelected
-                    ? 'bg-brand-900 text-white shadow-lg border border-brand-800'
-                    : 'bg-white text-slate-700 hover:text-brand-950 hover:bg-slate-100 border border-slate-200 shadow-sm'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-accent-400' : 'text-slate-500'}`} />
-                <span>{service.title}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Unified Master-Detail Workbench (No duplicate cards) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          {/* Left / Selector Rail (4 Columns on Desktop) */}
+          <div className="lg:col-span-4 space-y-2">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1 mb-2 flex items-center justify-between">
+              <span>Select Investigation Vertical</span>
+              <span className="font-mono text-[10px]">5 Verticals Active</span>
+            </div>
 
-        {/* Featured Service Spotlight Box */}
-        <div className="mt-8 bg-white rounded-3xl border border-slate-200 shadow-md p-7 sm:p-9 lg:p-11 transition-all duration-300">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            <div className="lg:col-span-7 space-y-5">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="px-3 py-1 rounded-full bg-accent-100 text-accent-800 text-xs font-bold border border-accent-200">
-                  {selectedService.highlight}
-                </span>
-                <span className="text-xs text-slate-500 font-medium">
-                  Verified Pan-UP Reach (75 Districts)
-                </span>
-              </div>
+            <div className="flex flex-col gap-2">
+              {SERVICES.map((service) => {
+                const Icon = iconMap[service.iconName] || FileCheck;
+                const isSelected = selectedService.id === service.id;
+                return (
+                  <button
+                    key={service.id}
+                    onClick={() => setSelectedService(service)}
+                    className={`w-full text-left p-3.5 rounded border transition-all flex items-start gap-3 relative ${
+                      isSelected
+                        ? 'bg-white dark:bg-[#111827] border-amber-700 dark:border-amber-500 shadow-sm ring-1 ring-amber-700/30 dark:ring-amber-500/30'
+                        : 'bg-white/60 dark:bg-[#0D1522]/80 border-slate-200 dark:border-slate-800/80 hover:bg-white dark:hover:bg-[#111827] hover:border-slate-300 dark:hover:border-slate-700'
+                    }`}
+                  >
+                    {/* Active Accent Indicator */}
+                    {isSelected && (
+                      <span className="absolute left-0 top-2 bottom-2 w-1 rounded-r bg-amber-700 dark:bg-amber-500" />
+                    )}
 
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-brand-950 font-heading tracking-tight">
-                  {selectedService.title}
-                </h3>
-                <p className="text-sm sm:text-base font-semibold text-accent-600 mt-1">
-                  {selectedService.tagline}
-                </p>
-              </div>
-
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                {selectedService.description}
-              </p>
-
-              <div className="space-y-3 pt-2">
-                <h4 className="text-xs font-bold text-brand-950 uppercase tracking-wider">
-                  Standard Scope & Evidentiary Deliverables:
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {selectedService.deliverables.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                      <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{item}</span>
+                    <div className={`p-2 rounded shrink-0 mt-0.5 ${
+                      isSelected 
+                        ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-700/50' 
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                    }`}>
+                      <Icon className="w-4 h-4" />
                     </div>
-                  ))}
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1 mb-0.5">
+                        <span className={`text-xs font-bold truncate ${
+                          isSelected ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'
+                        }`}>
+                          {service.title}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                        {service.tagline}
+                      </p>
+                      <div className="mt-1.5 flex items-center gap-1.5">
+                        <span className="text-[10px] font-mono font-medium px-2 py-0.2 rounded-sm bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 tabular-nums">
+                          {service.highlight.replace('Average Turnaround: ', 'TAT: ')}
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right / Detailed SOP & Evidentiary Deliverables Panel (8 Columns) */}
+          <div className="lg:col-span-8 bg-white dark:bg-[#111827] rounded border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm transition-colors">
+            
+            {/* Header Strip of Selected Vertical */}
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2.5 rounded bg-slate-100 dark:bg-[#1E293B] text-amber-800 dark:text-amber-400 border border-slate-200 dark:border-slate-700">
+                  <SelectedIcon className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                    {selectedService.title}
+                  </h3>
+                  <p className="text-xs font-semibold text-amber-800 dark:text-amber-400">
+                    {selectedService.tagline}
+                  </p>
                 </div>
               </div>
 
-              <div className="pt-4 flex flex-wrap gap-4 items-center">
-                <button
-                  onClick={onOpenTriageModal}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-900 hover:bg-brand-950 text-white font-semibold text-xs sm:text-sm shadow-md transition-all"
-                >
-                  <span>Assign {selectedService.title}</span>
-                  <ArrowRight className="w-4 h-4 text-accent-400" />
-                </button>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-900 hover:text-brand-950"
-                >
-                  <span>Request Custom SLA Schedule</span>
-                  <ChevronRight className="w-4 h-4 text-accent-600" />
-                </a>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded-sm bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30 tabular-nums">
+                  {selectedService.highlight}
+                </span>
+                <span className="hidden sm:inline-block font-mono text-xs text-slate-500 dark:text-slate-400">
+                  Pan-UP 75 Districts
+                </span>
               </div>
             </div>
 
-            {/* Right side: Operational Specs Card */}
-            <div className="lg:col-span-5 bg-brand-950 text-white rounded-2xl p-6 sm:p-7 shadow-xl border border-brand-800">
-              <div className="flex items-center justify-between pb-4 border-b border-brand-800">
+            {/* Description */}
+            <div className="mt-4">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {selectedService.description}
+              </p>
+            </div>
+
+            {/* Scope & Evidentiary Deliverables */}
+            <div className="mt-5 space-y-2.5">
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                Standard Scope & Evidentiary Deliverables:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {selectedService.deliverables.map((item, i) => (
+                  <div 
+                    key={i} 
+                    className="flex items-start gap-2 p-2.5 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800/80 text-slate-700 dark:text-slate-300"
+                  >
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="leading-snug">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Institutional Protocol Specs Box */}
+            <div className="mt-6 p-4 rounded bg-slate-50 dark:bg-[#0D1522] border border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
                 <div className="flex items-center gap-2">
-                  <Crosshair className="w-4 h-4 text-accent-400" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
-                    SOP & Field Protocol
+                  <Crosshair className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                    SOP & Field Protocol Standards
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
+                <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 rounded-sm border border-emerald-300 dark:border-emerald-800">
                   IRDAI COMPLIANT
                 </span>
               </div>
 
-              <div className="mt-5 space-y-4 text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <span className="text-slate-400 block text-[11px]">Evidence Chain Standard</span>
-                  <p className="text-slate-200 font-semibold mt-0.5">
-                    High-Res Geo-Tagged Photographs, GPS Coordinates, Timestamped Video & Written Declarations
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Evidence Chain Standard</span>
+                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
+                    High-Res Geo-Tagged Photos, GPS Coordinates, Timestamped Video & Written Declarations
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-brand-800">
-                  <span className="text-slate-400 block text-[11px]">Counterparts Scrutinized</span>
-                  <p className="text-slate-200 font-semibold mt-0.5">
-                    Claimants, Eyewitnesses, Police Station IOs, Authorized Workshops, RTOs & Hospital Staff
+                <div>
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Counterparts Scrutinized</span>
+                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
+                    Claimants, Eyewitnesses, Police Station IOs, Authorized Garages, RTOs & Hospital Staff
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-brand-800">
-                  <span className="text-slate-400 block text-[11px]">Deliverable Format</span>
-                  <p className="text-slate-200 font-semibold mt-0.5">
+                <div>
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Deliverable Format</span>
+                  <p className="text-slate-800 dark:text-slate-200 font-medium mt-0.5 text-[11px] leading-relaxed">
                     Structured Digital Dossier (PDF/MIS), Executive Fraud Score & Court-Admissible Affidavit
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-brand-800">
-                  <span className="text-slate-400 block text-[11px]">Field Response Guarantee</span>
-                  <p className="text-accent-400 font-bold mt-0.5">
-                    On-Site within 24 Hours in Central UP / 36 Hours Across Outer Districts
+                <div>
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Field Response Guarantee</span>
+                  <p className="text-amber-800 dark:text-amber-400 font-bold mt-0.5 text-[11px] leading-relaxed">
+                    On-Site within 24h Central UP / 36-48h Outer Districts
                   </p>
                 </div>
               </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* 5 Service Cards Overview (Fast Glance Grid) */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES.map((srv) => {
-            const Icon = iconMap[srv.iconName] || FileCheck;
-            return (
-              <div 
-                key={srv.id}
-                onClick={() => setSelectedService(srv)}
-                className={`bg-white rounded-2xl p-6 border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
-                  selectedService.id === srv.id 
-                    ? 'border-brand-900 ring-2 ring-brand-900/10 shadow-lg' 
-                    : 'border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-md'
-                }`}
+            {/* Action Bar */}
+            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 items-center justify-between">
+              <button
+                onClick={onOpenTriageModal}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs tracking-wide shadow-sm transition-all active:scale-[0.98] border border-amber-800 dark:border-amber-500"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-900 flex items-center justify-center">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full">
-                      {srv.highlight}
-                    </span>
-                  </div>
+                <span>Assign {selectedService.title}</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
 
-                  <h4 className="text-base font-bold text-brand-950 font-heading">
-                    {srv.title}
-                  </h4>
-                  <p className="text-xs text-slate-500 mt-1 line-clamp-2">
-                    {srv.tagline}
-                  </p>
-                </div>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white transition-colors"
+              >
+                <span>Request Custom Corporate SLA Schedule</span>
+                <ChevronRight className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+              </a>
+            </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-brand-900">
-                  <span>View Full Deliverables</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-accent-600" />
-                </div>
-              </div>
-            );
-          })}
+          </div>
+
         </div>
 
       </div>

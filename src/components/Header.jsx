@@ -6,19 +6,23 @@ import {
   Menu, 
   X, 
   ArrowUpRight, 
-  FileText
+  FileText,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { COMPANY_INFO } from '../data/companyData';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Header({ onOpenTriageModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 24);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -32,114 +36,122 @@ export default function Header({ onOpenTriageModal }) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all duration-300">
-      {/* Top Institutional Credibility Strip */}
-      <div className="bg-brand-950 text-slate-300 text-[11px] font-medium py-2 px-4 border-b border-white/[0.08] tracking-wide">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="inline-flex items-center gap-1.5 text-accent-400 font-mono font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5 text-accent-400" />
+    <header className="sticky top-0 z-50 w-full">
+      {/* 1. Slim, Subtle 32px Utility Micro-Bar (Cleanly collapses on scroll) */}
+      <div 
+        className={`w-full bg-slate-100 dark:bg-[#070B12] text-slate-600 dark:text-slate-400 text-[10px] sm:text-[11px] font-medium border-b border-slate-200 dark:border-slate-800/80 transition-all duration-200 overflow-hidden ${
+          isScrolled ? 'max-h-0 py-0 border-transparent opacity-0' : 'max-h-16 sm:max-h-10 py-1 sm:py-1.5 opacity-100'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-1">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-0.5 text-center sm:text-left">
+            <span className="inline-flex items-center gap-1 font-mono font-semibold text-slate-800 dark:text-slate-200">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
               CIN: {COMPANY_INFO.cin}
             </span>
-            <span className="text-slate-600">|</span>
-            <span className="text-slate-200">ROC Kanpur Registered</span>
-            <span className="hidden md:inline text-slate-600">|</span>
-            <span className="hidden md:inline text-slate-200">Est. 2018 (7+ Yrs Operations)</span>
+            <span className="text-slate-300 dark:text-slate-700">|</span>
+            <span className="text-slate-700 dark:text-slate-300">{COMPANY_INFO.roc} Registered</span>
+            <span className="hidden md:inline text-slate-300 dark:text-slate-700">|</span>
+            <span className="hidden md:inline text-slate-700 dark:text-slate-300">
+              Incorporated Nov 15, 2018 ({COMPANY_INFO.yearsInOperation} Yrs Ops)
+            </span>
+            <span className="hidden lg:inline text-slate-300 dark:text-slate-700">|</span>
+            <span className="hidden lg:inline text-slate-700 dark:text-slate-300">
+              15+ Yrs Group Heritage (ERE 2010)
+            </span>
           </div>
 
-          <div className="flex items-center gap-4 text-slate-300">
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-accent-400" />
-              <span>Aliganj, Lucknow, UP</span>
+          <div className="hidden sm:flex items-center gap-3 text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
+              <span>Aliganj, Lucknow HQ</span>
             </div>
-            <span className="text-slate-600">|</span>
+            <span className="text-slate-300 dark:text-slate-700">|</span>
             <a 
               href={`mailto:${COMPANY_INFO.contact.officialEmail}`}
-              className="flex items-center gap-1.5 hover:text-white text-slate-200 transition-colors"
+              className="flex items-center gap-1 hover:text-slate-900 dark:hover:text-white transition-colors"
             >
-              <Mail className="w-3.5 h-3.5 text-accent-400" />
+              <Mail className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
               <span className="font-mono text-[11px]">{COMPANY_INFO.contact.officialEmail}</span>
             </a>
           </div>
-
         </div>
       </div>
 
-      {/* Main Executive Navbar */}
-      <nav 
-        className={`w-full transition-all duration-300 ${
-          isScrolled 
-            ? 'executive-glass shadow-executive-dark py-3.5' 
-            : 'bg-brand-900 border-b border-brand-800/80 py-4'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      {/* 2. Sleek 64px Frosted-Glass Primary Navigation Bar */}
+      <nav className="w-full header-glass border-b border-slate-200/80 dark:border-slate-800/80 shadow-sm dark:shadow-none transition-colors duration-150">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           
-          {/* Brand Emblem & Typography */}
-          <a href="#" className="flex items-center gap-3.5 group">
-            {/* Custom Monogram Shield */}
-            <div className="relative w-11 h-11 rounded-xl bg-brand-950 p-1 border border-brand-700/80 group-hover:border-accent-400 shadow-md flex items-center justify-center transition-all duration-300">
-              <span className="text-white font-heading font-extrabold text-base tracking-wider group-hover:text-accent-400 transition-colors">
+          {/* Brand Emblem & Identification */}
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="relative w-9 h-9 rounded bg-[#0F2942] dark:bg-[#111827] border border-slate-300 dark:border-slate-700 shadow-sm flex items-center justify-center transition-colors group-hover:border-amber-600">
+              <span className="text-white dark:text-amber-400 font-mono font-bold text-xs tracking-wider">
                 AMS
               </span>
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-accent-500 border-2 border-brand-950" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-600 border border-white dark:border-[#111827]" />
             </div>
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="text-white font-heading font-bold text-base sm:text-lg tracking-tight group-hover:text-slate-100 transition-colors">
+              <div className="flex items-center gap-1.5">
+                <span className="font-sans font-bold text-sm sm:text-base tracking-tight text-slate-900 dark:text-white">
                   AUTOCRATIC
                 </span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-widest bg-accent-500/20 text-accent-400 border border-accent-500/40">
+                <span className="px-1.5 py-0.2 rounded-sm text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30">
                   PVT LTD
                 </span>
               </div>
-              <span className="text-slate-300 text-[11px] font-medium tracking-wide">
-                Management Services • Claims & Risk Intelligence
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 tracking-tight">
+                Claims & Risk Intelligence • Lucknow HQ
               </span>
             </div>
           </a>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+          {/* Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-1">
             {navLinks.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="px-3.5 py-2 text-xs font-semibold text-slate-200 hover:text-white hover:bg-brand-800/60 rounded-lg transition-all duration-150"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/70 rounded transition-colors"
               >
                 {item.label}
               </a>
             ))}
           </div>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right Action Cluster: Theme Toggle + Assign Mandate CTA */}
+          <div className="flex items-center gap-2.5">
+            {/* Crisp Sun/Moon Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-600"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? (
+                <Moon className="w-4 h-4 text-slate-700" />
+              ) : (
+                <Sun className="w-4 h-4 text-amber-400" />
+              )}
+            </button>
+
+            {/* Single Primary CTA: Assign Mandate */}
             <button
               onClick={onOpenTriageModal}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 border border-accent-400/40"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all active:scale-[0.98] border border-amber-800 dark:border-amber-500"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Assign Mandate</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 ml-0.5 opacity-80" />
             </button>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={onOpenTriageModal}
-              className="sm:hidden px-3 py-1.5 rounded-lg bg-accent-500 text-white font-bold text-xs"
-            >
-              Assign
-            </button>
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-200 hover:text-white hover:bg-brand-800 focus:outline-none"
-              aria-label="Toggle navigation"
+              className="lg:hidden p-2 rounded text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
+              aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
@@ -147,13 +159,17 @@ export default function Header({ onOpenTriageModal }) {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-brand-950 border-b border-brand-800 px-5 pt-4 pb-7 mt-3 space-y-2">
-            <div className="p-3 bg-brand-900 rounded-xl mb-3 border border-brand-800">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-accent-400">
-                Pan-UP Corporate Dispatch Desk
+          <div className="lg:hidden bg-white dark:bg-[#090D16] border-b border-slate-200 dark:border-slate-800 px-4 pt-3 pb-6 space-y-2">
+            <div className="p-3 bg-slate-50 dark:bg-[#111827] rounded border border-slate-200 dark:border-slate-800 mb-3">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-amber-700 dark:text-amber-400 font-mono">
+                Aliganj Central Command Desk
               </span>
-              <p className="text-xs font-semibold text-white mt-1">Aliganj, Lucknow Operational Center</p>
-              <p className="text-[10px] text-slate-300 font-mono mt-0.5">CIN: {COMPANY_INFO.cin}</p>
+              <p className="text-xs font-semibold text-slate-900 dark:text-white mt-0.5">
+                Lucknow Operational Headquarters
+              </p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-0.5">
+                CIN: {COMPANY_INFO.cin} • 75 UP Districts
+              </p>
             </div>
 
             {navLinks.map((item) => (
@@ -161,22 +177,22 @@ export default function Header({ onOpenTriageModal }) {
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-sm font-medium text-slate-200 hover:text-white hover:bg-brand-800 rounded-lg"
+                className="block px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 rounded"
               >
                 {item.label}
               </a>
             ))}
 
-            <div className="pt-3 border-t border-brand-800">
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenTriageModal();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-accent-500 text-white font-bold text-xs uppercase tracking-wider shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-500 text-white font-semibold text-xs tracking-wide shadow-sm"
               >
                 <FileText className="w-4 h-4" />
-                <span>Initiate Case Triage / Audit</span>
+                <span>Assign Mandate / Case Audit</span>
               </button>
             </div>
           </div>
